@@ -1,0 +1,130 @@
+[
+  {
+    "id": "b-01",
+    "title": {
+      "en": "Family Pension",
+      "hi": "TODO_VERIFY_HI",
+      "mr": "TODO_VERIFY_MR"
+    },
+    "summary": {
+      "en": "Financial support for the family (ordinary or liberalised based on cause of death).",
+      "hi": "TODO_VERIFY_HI",
+      "mr": "TODO_VERIFY_MR"
+    },
+    "applies_when": "Next of kin of deceased service personnel.",
+    "documents_required": [
+      "Death Certificate",
+      "Service Discharge Book or PPO (Pension Payment Order)",
+      "Bank Account Details (Single account)"
+    ],
+    "office": "TODO_VERIFY",
+    "steps": [
+      "TODO_VERIFY_STEP_1",
+      "TODO_VERIFY_STEP_2"
+    ],
+    "source_url": "TODO_VERIFY",
+    "last_verified": "TODO_VERIFY"
+  },
+  {
+    "id": "b-02",
+    "title": {
+      "en": "ECHS Health Card for Dependents",
+      "hi": "TODO_VERIFY_HI",
+      "mr": "TODO_VERIFY_MR"
+    },
+    "summary": {
+      "en": "Medical coverage for dependent family members under the Ex-Servicemen Contributory Health Scheme.",
+      "hi": "TODO_VERIFY_HI",
+      "mr": "TODO_VERIFY_MR"
+    },
+    "applies_when": "Dependents of deceased service personnel.",
+    "documents_required": [
+      "Aadhar Card of dependents",
+      "Passport size photographs",
+      "Proof of relationship"
+    ],
+    "office": "TODO_VERIFY",
+    "steps": [
+      "TODO_VERIFY_STEP_1",
+      "TODO_VERIFY_STEP_2"
+    ],
+    "source_url": "TODO_VERIFY",
+    "last_verified": "TODO_VERIFY"
+  },
+  {
+    "id": "b-03",
+    "title": {
+      "en": "Children's Education Support (e.g. PM Scholarship)",
+      "hi": "TODO_VERIFY_HI",
+      "mr": "TODO_VERIFY_MR"
+    },
+    "summary": {
+      "en": "Financial assistance for the education of dependent children of deceased service personnel.",
+      "hi": "TODO_VERIFY_HI",
+      "mr": "TODO_VERIFY_MR"
+    },
+    "applies_when": "Deceased service personnel has dependent children pursuing higher education.",
+    "documents_required": [
+      "School/College ID of children",
+      "Marksheets",
+      "Discharge Book"
+    ],
+    "office": "TODO_VERIFY",
+    "steps": [
+      "TODO_VERIFY_STEP_1",
+      "TODO_VERIFY_STEP_2"
+    ],
+    "source_url": "TODO_VERIFY",
+    "last_verified": "TODO_VERIFY"
+  },
+  {
+    "id": "b-04",
+    "title": {
+      "en": "Maharashtra State Welfare Benefit",
+      "hi": "TODO_VERIFY_HI",
+      "mr": "TODO_VERIFY_MR"
+    },
+    "summary": {
+      "en": "Additional welfare grants and benefits provided by the state government of Maharashtra.",
+      "hi": "TODO_VERIFY_HI",
+      "mr": "TODO_VERIFY_MR"
+    },
+    "applies_when": "Deceased service personnel or family is domiciled in Maharashtra.",
+    "documents_required": [
+      "Domicile Certificate of Maharashtra",
+      "Identity Proof"
+    ],
+    "office": "TODO_VERIFY",
+    "steps": [
+      "TODO_VERIFY_STEP_1",
+      "TODO_VERIFY_STEP_2"
+    ],
+    "source_url": "TODO_VERIFY",
+    "last_verified": "TODO_VERIFY"
+  },
+  {
+    "id": "b-05",
+    "title": {
+      "en": "Ex-gratia / One-time Grant",
+      "hi": "TODO_VERIFY_HI",
+      "mr": "TODO_VERIFY_MR"
+    },
+    "summary": {
+      "en": "A one-time lump sum grant provided under specific conditions of death in harness.",
+      "hi": "TODO_VERIFY_HI",
+      "mr": "TODO_VERIFY_MR"
+    },
+    "applies_when": "Death occurring in harness / battle casualty.",
+    "documents_required": [
+      "Official casualty report",
+      "Bank Mandate Form"
+    ],
+    "office": "TODO_VERIFY",
+    "steps": [
+      "TODO_VERIFY_STEP_1",
+      "TODO_VERIFY_STEP_2"
+    ],
+    "source_url": "TODO_VERIFY",
+    "last_verified": "TODO_VERIFY"
+  }
+]

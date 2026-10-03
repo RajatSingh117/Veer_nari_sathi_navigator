@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="web_standard" name="shell-type">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <style>
+        @layer base {
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                overscroll-behavior: none;
+            }
+
+            main>:first-child {
+                margin-top: 0 !important;
+            }
+
+            main>:last-child {
+                margin-bottom: 0 !important;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+        id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "outline-variant": "#c5c6ce", "on-surface-variant": "#44474d", "primary-container": "#1b2a41", "surface-container": "#eaedff", "on-primary": "#ffffff", "on-secondary-container": "#663500", "tertiary-container": "#013200", "on-secondary": "#ffffff", "on-surface": "#131b2e", "error-container": "#ffdad6", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#035300", "tertiary-fixed-dim": "#72de5c", "on-tertiary": "#ffffff", "on-secondary-fixed-variant": "#6e3900", "on-primary-fixed": "#0c1c32", "inverse-primary": "#b8c7e5", "surface-dim": "#d2d9f4", "surface-container-highest": "#dae2fd", "surface-variant": "#dae2fd", "inverse-on-surface": "#eef0ff", "surface-container-low": "#f2f3ff", "on-error": "#ffffff", "surface": "#faf8ff", "on-primary-fixed-variant": "#394760", "inverse-surface": "#283044", "outline": "#75777e", "on-primary-container": "#8291ad", "secondary-fixed": "#ffdcc3", "surface-tint": "#505f79", "on-tertiary-container": "#3aa62b", "secondary": "#904d00", "on-error-container": "#93000a", "secondary-container": "#fe932c", "tertiary-fixed": "#8dfc75", "background": "#faf8ff", "on-tertiary-fixed": "#012200", "surface-bright": "#faf8ff", "on-secondary-fixed": "#2f1500", "error": "#ba1a1a", "primary-fixed-dim": "#b8c7e5", "primary-fixed": "#d5e3ff", "primary": "#05152b", "on-background": "#131b2e", "tertiary": "#001b00", "surface-container-high": "#e2e7ff", "secondary-fixed-dim": "#ffb77d" }, borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" }, spacing: { "margin-mobile": "1rem", "space-xl": "3rem", "space-xs": "0.375rem", "space-sm": "0.75rem", "space-lg": "2rem", "gutter-mobile": "1rem", "space-md": "1.25rem", margin: "2rem", gutter: "1.5rem" }, fontFamily: { "body-lg": ["Noto Sans"], "headline-sm": ["Noto Sans"], "headline-md": ["Noto Sans"], "headline-lg": ["Noto Sans"], "body-xl": ["Noto Sans"], caption: ["Noto Sans"], "label-md": ["Noto Sans"], "headline-xl-mobile": ["Noto Sans"], "headline-xl": ["Noto Sans"], "label-lg": ["Noto Sans"], "headline-lg-mobile": ["Noto Sans"], "body-md": ["Noto Sans"] }, fontSize: { "body-lg": ["18px", { lineHeight: "30px", fontWeight: "500" }], "headline-sm": ["22px", { lineHeight: "32px", fontWeight: "600" }], "headline-md": ["26px", { lineHeight: "36px", fontWeight: "600" }], "headline-lg": ["32px", { lineHeight: "44px", fontWeight: "700" }], "body-xl": ["20px", { lineHeight: "32px", fontWeight: "500" }], caption: ["14px", { lineHeight: "20px", fontWeight: "500" }], "label-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "headline-xl-mobile": ["28px", { lineHeight: "38px", fontWeight: "700" }], "headline-xl": ["40px", { lineHeight: "52px", fontWeight: "700" }], "label-lg": ["18px", { lineHeight: "24px", fontWeight: "600" }], "headline-lg-mobile": ["24px", { lineHeight: "34px", fontWeight: "700" }], "body-md": ["16px", { lineHeight: "26px", fontWeight: "400" }] } } } };</script>
+</head>
+
+<body
+    class="bg-background font-body-md text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
+        <div class="w-full h-[3px] flex">
+            <div class="h-full flex-1 bg-[#FF9933]"></div>
+            <div class="h-full flex-1 bg-[#FFFFFF]"></div>
+            <div class="h-full flex-1 bg-[#138808]"></div>
+        </div>
+        <div class="bg-primary text-on-primary py-space-xs px-margin-mobile lg:px-margin">
+            <div
+                class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-space-xs text-caption font-caption">
+                <div class="flex items-center gap-space-xs"><span
+                        class="material-symbols-outlined text-secondary-container text-[18px]">support_agent</span><span
+                        class="font-label-md text-caption">24x7 KSB Sahayata Toll-Free:</span><a
+                        class="font-headline-sm text-caption text-secondary-fixed underline hover:text-on-primary transition-colors"
+                        href="tel:1800111971">1800-11-1971</a><span
+                        class="hidden sm:inline text-outline-variant">|</span><span
+                        class="hidden sm:inline text-surface-container-highest">DESW &amp; Kendriya Sainik Board
+                        Guidance</span></div>
+                <div class="flex items-center gap-space-sm">
+                    <div class="flex items-center gap-1 bg-primary-container px-2 py-0.5 rounded"><span
+                            class="text-caption font-caption text-on-primary-container">Text Size:</span><button
+                            class="px-1.5 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-surface-variant hover:text-on-surface transition-colors"
+                            title="Decrease Text Size" type="button">A-</button><button
+                            class="px-1.5 py-0.5 rounded text-caption font-label-md text-on-primary bg-surface-variant text-on-surface"
+                            title="Normal Text Size" type="button">A</button><button
+                            class="px-1.5 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-surface-variant hover:text-on-surface transition-colors"
+                            title="Increase Text Size" type="button">A+</button></div>
+                    <div class="flex items-center gap-1"><button
+                            class="px-2 py-0.5 rounded text-caption font-label-md bg-secondary-container text-on-secondary-container"
+                            type="button">EN</button><button
+                            class="px-2 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-primary-container transition-colors"
+                            type="button">हिन्दी</button><button
+                            class="px-2 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-primary-container transition-colors"
+                            type="button">मराठी</button><button
+                            class="px-2 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-primary-container transition-colors"
+                            type="button">ਪੰਜਾਬੀ</button></div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="h-28 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md">
+            <div class="flex items-center gap-space-sm">
+                <div
+                    class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center text-secondary-container shadow-[0_1px_8px_rgba(0,0,0,0.08)]">
+                    <span class="material-symbols-outlined text-[28px]">local_fire_department</span></div>
+                <div class="flex flex-col"><span
+                        class="font-headline-md text-headline-sm md:text-headline-md text-primary leading-tight tracking-tight">वीर
+                        नारी साथी</span><span
+                        class="font-label-md text-caption md:text-label-md text-on-surface-variant tracking-normal">Veer
+                        Nari Saathi • Armed Forces Family Navigator</span></div>
+            </div>
+            <div class="flex items-center gap-space-sm"><button
+                    class="flex items-center gap-2 h-14 px-space-md rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-lg text-label-lg shadow-[0_1px_8px_rgba(0,0,0,0.06)] hover:bg-secondary-container hover:text-on-secondary-container transition-colors"
+                    type="button"><span class="material-symbols-outlined text-[24px]">volume_up</span><span>सुनें /
+                        Listen</span></button>
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span
+                        class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
+            </div>
+        </div>
+        <div class="bg-surface-container-low">
+            <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin">
+                <nav class="flex items-center gap-space-xs overflow-x-auto py-2"
+                    data-active-classes="bg-primary-container text-on-primary font-label-lg rounded-lg"><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="home" href="#">Home / मुख्य पृष्ठ</a><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="eligibility-finder" href="#">Eligibility Finder / पात्रता खोज</a><a
+                        aria-current="page"
+                        class="shrink-0 px-space-md py-2.5 transition-colors bg-primary-container text-on-primary font-label-lg rounded-lg"
+                        data-path="document-assistant" href="#">Document Assistant / दस्तावेज़</a><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="my-entitlements" href="#">My Entitlements / अधिकार (5)</a><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="benefit-guides-letters" href="#">Benefit Guides &amp; Letters / पत्र प्रारूप</a><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="my-checklist" href="#">My Checklist / चेकलिस्ट</a></nav>
+            </div>
+        </div>
+    </header>
+    <main class="w-full pt-44 bg-surface min-h-[calc(100vh-200px)]">
+        <div class="flex flex-col w-full">
+            <div class="w-full bg-surface-container-low py-space-lg px-margin-mobile lg:px-margin">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+                    <div class="max-w-3xl flex flex-col gap-space-xs">
+                        <div class="flex items-center gap-2">
+                            <span
+                                class="px-2.5 py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-label-md text-caption uppercase tracking-wider">चरण
+                                2 / Step 2 of 4</span>
+                            <span class="text-on-surface-variant font-caption text-caption">• डिजिटल दस्तावेज़
+                                सत्यापन</span>
+                        </div>
+                        <h1
+                            class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary tracking-tight">
+                            Upload or Photograph Your Documents <span
+                                class="block md:inline font-headline-md text-headline-md text-on-surface-variant font-normal">(दस्तावेज़
+                                अपलोड करें)</span>
+                        </h1>
+                        <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                            Our secure scanner automatically reads the martyr's official records so you do not have to
+                            strain or type tedious forms. High-resolution photographs taken from your mobile phone
+                            camera are fully accepted.
+                        </p>
+                    </div>
+                    <div class="shrink-0 flex items-center">
+                        <button
+                            class="flex items-center gap-3 px-space-md py-3.5 rounded-xl bg-secondary-container text-on-secondary-container font-label-lg text-label-lg shadow-md hover:bg-secondary hover:text-on-secondary transition-all transform active:scale-95"
+                            id="voiceNarratorBtn" onclick="toggleAudioSpeech()" type="button">
+                            <span class="material-symbols-outlined text-[28px]" id="speakerIcon">volume_up</span>
+                            <div class="flex flex-col text-left">
+                                <span class="leading-none">निर्देश सुनें / Listen</span>
+                                <span class="font-caption text-caption opacity-90">Upload Guide Voice Assist</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto w-full px-margin-mobile lg:px-margin py-space-xl flex flex-col gap-space-xl">
+                <div>
+                    <div class="flex items-center justify-between mb-space-md">
+                        <div>
+                            <h2 class="font-headline-md text-headline-md text-primary">Required Service Records</h2>
+                            <p class="font-body-md text-body-md text-on-surface-variant">Three critical credentials to
+                                calculate family pensions, gallantry allowances &amp; scholarships.</p>
+                        </div>
+                        <span
+                            class="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container font-label-md text-caption text-on-surface-variant">
+                            <span class="material-symbols-outlined text-[16px] text-tertiary-container">lock</span>
+                            256-Bit Military Grade Encryption
+                        </span>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+                        <div
+                            class="flex flex-col justify-between p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex flex-col gap-space-sm">
+                                <div class="flex items-start justify-between gap-2">
+                                    <span
+                                        class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined text-[24px]">verified</span>
+                                    </span>
+                                    <span
+                                        class="px-3 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-md text-caption flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                                        Extracted Successfully
+                                    </span>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <h3 class="font-headline-sm text-headline-sm text-primary">Death / Casualty
+                                        Certificate</h3>
+                                    <p class="font-body-md text-caption text-on-surface-variant">Battle casualty order /
+                                        Part-II Order issued by Record Office</p>
+                                </div>
+                                <div class="flex items-center gap-space-sm p-3 rounded-lg bg-surface-container-low">
+                                    <div
+                                        class="w-10 h-10 rounded bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+                                        <span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+                                    </div>
+                                    <div class="flex flex-col min-w-0">
+                                        <span
+                                            class="font-label-md text-caption text-primary truncate">Casualty_Order_R_Kumar_1999.pdf</span>
+                                        <span class="font-caption text-caption text-on-surface-variant">1.2 MB •
+                                            Uploaded via Camera</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-space-xs mt-space-md pt-space-sm">
+                                <button
+                                    class="flex-1 py-2.5 px-3 rounded-lg bg-surface-container hover:bg-surface-variant text-primary font-label-md text-caption flex items-center justify-center gap-1.5 transition-colors"
+                                    type="button">
+                                    <span class="material-symbols-outlined text-[18px]">visibility</span>
+                                    View File
+                                </button>
+                                <button
+                                    class="py-2.5 px-3 rounded-lg bg-surface-container hover:bg-surface-variant text-on-surface-variant font-label-md text-caption flex items-center justify-center gap-1 transition-colors"
+                                    type="button">
+                                    <span class="material-symbols-outlined text-[18px]">refresh</span>
+                                    Re-upload
+                                </button>
+                            </div>
+                        </div>
+                        <div
+                            class="relative flex flex-col justify-between p-space-md rounded-xl bg-surface-container-lowest shadow-md overflow-hidden">
+                            <div class="flex flex-col gap-space-sm">
+                                <div class="flex items-start justify-between gap-2">
+                                    <span
+                                        class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+                                        <span
+                                            class="material-symbols-outlined text-[24px] animate-pulse">document_scanner</span>
+                                    </span>
+                                    <span
+                                        class="px-3 py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-label-md text-caption flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+                                        AI Reading in Progress
+                                    </span>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <h3 class="font-headline-sm text-headline-sm text-primary">Service Book / PPO Copy
+                                    </h3>
+                                    <p class="font-body-md text-caption text-on-surface-variant">Discharge book, e-PPO,
+                                        or SPARSH migration voucher</p>
+                                </div>
+                                <div class="flex flex-col gap-space-xs p-space-sm rounded-lg bg-surface-container-high">
+                                    <div class="flex items-center justify-between font-label-md text-caption">
+                                        <span class="text-primary flex items-center gap-1">
+                                            <span
+                                                class="material-symbols-outlined text-[16px] text-secondary">memory</span>
+                                            OCR Engine Scan
+                                        </span>
+                                        <span class="text-secondary font-bold">85% Complete</span>
+                                    </div>
+                                    <div class="w-full bg-surface-container rounded-full h-2 overflow-hidden">
+                                        <div
+                                            class="bg-secondary-container h-full rounded-full w-[85%] transition-all duration-700 ease-out">
+                                        </div>
+                                    </div>
+                                    <p class="font-caption text-caption text-on-surface-variant leading-tight mt-1">
+                                        Parsing Army Number, Regiment, Rank, and Date of Enrollment...
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 mt-space-md pt-space-sm">
+                                <div
+                                    class="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-surface-container text-on-surface-variant font-label-md text-caption">
+                                    <span class="material-symbols-outlined text-[18px] animate-spin">sync</span>
+                                    Reading Pages 1 to 4...
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="flex flex-col justify-between p-space-md rounded-xl bg-surface-container-low shadow-sm">
+                            <div class="flex flex-col gap-space-sm">
+                                <div class="flex items-start justify-between gap-2">
+                                    <span
+                                        class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-outline">
+                                        <span class="material-symbols-outlined text-[24px]">id_card</span>
+                                    </span>
+                                    <span
+                                        class="px-3 py-1 rounded bg-surface-container-highest text-on-surface-variant font-label-md text-caption flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[16px]">pending</span>
+                                        Pending Upload
+                                    </span>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <h3 class="font-headline-sm text-headline-sm text-primary">Aadhaar / Identity Proof
+                                    </h3>
+                                    <p class="font-body-md text-caption text-on-surface-variant">Proof of identity for
+                                        Veer Nari (Dependent Family Head)</p>
+                                </div>
+                                <div
+                                    class="p-space-md rounded-lg bg-surface-container-lowest text-center flex flex-col items-center justify-center gap-2">
+                                    <span
+                                        class="material-symbols-outlined text-outline-variant text-[32px]">cloud_upload</span>
+                                    <p class="font-caption text-caption text-on-surface-variant">Upload PDF, JPG or PNG
+                                        (up to 10MB)</p>
+                                </div>
+                            </div>
+                            <div class="mt-space-md pt-space-sm">
+                                <button
+                                    class="w-full h-14 rounded-lg bg-primary-container text-on-primary hover:bg-primary font-label-lg text-label-md flex items-center justify-center gap-2 shadow-sm transition-colors active:scale-95"
+                                    type="button">
+                                    <span class="material-symbols-outlined text-[20px]">photo_camera</span>
+                                    Choose File or Take Photo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-2xl bg-surface-container p-space-md md:p-space-lg shadow-sm">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+                        <div class="flex items-start gap-space-sm">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[28px]">auto_read_pause</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-headline-sm text-headline-sm text-primary">Verified Extracted
+                                        Information</h3>
+                                    <span
+                                        class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-md text-caption">100%
+                                        Match</span>
+                                </div>
+                                <p class="font-body-md text-body-md text-on-surface-variant">
+                                    We have scanned your Casualty Certificate. Please cross-check each entry. Tap
+                                    <strong>'Edit'</strong> to update any spelling or digit.
+                                </p>
+                            </div>
+                        </div>
+                        <button
+                            class="shrink-0 flex items-center gap-2 px-space-sm py-2 rounded-lg bg-surface-container-lowest text-primary hover:bg-secondary-fixed transition-colors font-label-md text-caption"
+                            onclick="speakFieldDetails()" type="button">
+                            <span class="material-symbols-outlined text-[20px] text-secondary">volume_up</span>
+                            Verify via Audio (बोलकर सुनाएं)
+                        </button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+                    <div class="lg:col-span-8 flex flex-col gap-space-md">
+                        <div class="bg-surface-container-lowest rounded-2xl shadow-md overflow-hidden">
+                            <div class="p-space-md bg-surface-container-low flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary">assignment_turned_in</span>
+                                    <span class="font-label-lg text-label-lg text-primary">Official Record Parameters
+                                        (अभिलेख विवरण)</span>
+                                </div>
+                                <span class="text-caption font-caption text-on-surface-variant">Source: Part-II Order /
+                                    Casualty Cert</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center justify-between p-space-md bg-surface-container-lowest hover:bg-surface-container-low transition-colors gap-space-xs">
+                                    <div class="flex flex-col min-w-0 sm:w-1/3">
+                                        <span
+                                            class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">Soldier
+                                            Full Name</span>
+                                        <span class="font-label-md text-caption text-primary">सैनिक का नाम</span>
+                                    </div>
+                                    <div class="flex-1 flex items-center justify-between gap-4">
+                                        <input
+                                            class="w-full bg-transparent font-headline-sm text-headline-sm text-primary focus:outline-none focus:bg-surface-container px-2 py-1 rounded"
+                                            id="field_name" readonly="" type="text" value="Late Rifleman Ramesh Kumar">
+                                        <button
+                                            class="p-2 rounded-lg bg-surface-container hover:bg-secondary-fixed text-primary flex items-center gap-1 font-label-md text-caption shrink-0"
+                                            onclick="enableEdit('field_name')" type="button">
+                                            <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            <span class="hidden sm:inline">Edit</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center justify-between p-space-md bg-surface-container-low/50 hover:bg-surface-container-low transition-colors gap-space-xs">
+                                    <div class="flex flex-col min-w-0 sm:w-1/3">
+                                        <span
+                                            class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">Army
+                                            Service Number</span>
+                                        <span class="font-label-md text-caption text-primary">सेना सेवा क्रमांक</span>
+                                    </div>
+                                    <div class="flex-1 flex items-center justify-between gap-4">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-mono text-label-md">ARMY</span>
+                                            <input
+                                                class="w-full bg-transparent font-headline-sm text-headline-sm text-primary font-mono focus:outline-none focus:bg-surface-container px-2 py-1 rounded"
+                                                id="field_army_no" readonly="" type="text" value="JC-458921X">
+                                        </div>
+                                        <button
+                                            class="p-2 rounded-lg bg-surface-container hover:bg-secondary-fixed text-primary flex items-center gap-1 font-label-md text-caption shrink-0"
+                                            onclick="enableEdit('field_army_no')" type="button">
+                                            <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            <span class="hidden sm:inline">Edit</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center justify-between p-space-md bg-surface-container-lowest hover:bg-surface-container-low transition-colors gap-space-xs">
+                                    <div class="flex flex-col min-w-0 sm:w-1/3">
+                                        <span
+                                            class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">Regiment
+                                            &amp; Sector</span>
+                                        <span class="font-label-md text-caption text-primary">रेजिमेंट एवं वाहिनी</span>
+                                    </div>
+                                    <div class="flex-1 flex items-center justify-between gap-4">
+                                        <input
+                                            class="w-full bg-transparent font-headline-sm text-headline-sm text-primary focus:outline-none focus:bg-surface-container px-2 py-1 rounded"
+                                            id="field_regiment" readonly="" type="text"
+                                            value="13 JAK Rifles (Kargil Sector)">
+                                        <button
+                                            class="p-2 rounded-lg bg-surface-container hover:bg-secondary-fixed text-primary flex items-center gap-1 font-label-md text-caption shrink-0"
+                                            onclick="enableEdit('field_regiment')" type="button">
+                                            <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            <span class="hidden sm:inline">Edit</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center justify-between p-space-md bg-surface-container-low/50 hover:bg-surface-container-low transition-colors gap-space-xs">
+                                    <div class="flex flex-col min-w-0 sm:w-1/3">
+                                        <span
+                                            class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">Nature
+                                            of Casualty</span>
+                                        <span class="font-label-md text-caption text-primary">बलिदान श्रेणी /
+                                            प्रकार</span>
+                                    </div>
+                                    <div class="flex-1 flex items-center justify-between gap-4">
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-3 h-3 rounded-full bg-error shrink-0"></span>
+                                            <input
+                                                class="w-full bg-transparent font-headline-sm text-headline-sm text-primary focus:outline-none focus:bg-surface-container px-2 py-1 rounded"
+                                                id="field_casualty" readonly="" type="text"
+                                                value="Battle Casualty (Operation Vijay, 1999)">
+                                        </div>
+                                        <button
+                                            class="p-2 rounded-lg bg-surface-container hover:bg-secondary-fixed text-primary flex items-center gap-1 font-label-md text-caption shrink-0"
+                                            onclick="enableEdit('field_casualty')" type="button">
+                                            <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            <span class="hidden sm:inline">Edit</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center justify-between p-space-md bg-surface-container-lowest hover:bg-surface-container-low transition-colors gap-space-xs">
+                                    <div class="flex flex-col min-w-0 sm:w-1/3">
+                                        <span
+                                            class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">Next
+                                            of Kin / Veer Nari</span>
+                                        <span class="font-label-md text-caption text-primary">आश्रित पत्नी / वीर
+                                            नारी</span>
+                                    </div>
+                                    <div class="flex-1 flex items-center justify-between gap-4">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-md text-caption">Wife</span>
+                                            <input
+                                                class="w-full bg-transparent font-headline-sm text-headline-sm text-primary focus:outline-none focus:bg-surface-container px-2 py-1 rounded"
+                                                id="field_nok" readonly="" type="text" value="Smt. Sunita Devi">
+                                        </div>
+                                        <button
+                                            class="p-2 rounded-lg bg-surface-container hover:bg-secondary-fixed text-primary flex items-center gap-1 font-label-md text-caption shrink-0"
+                                            onclick="enableEdit('field_nok')" type="button">
+                                            <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            <span class="hidden sm:inline">Edit</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center justify-between p-space-md bg-surface-container-low/50 hover:bg-surface-container-low transition-colors gap-space-xs">
+                                    <div class="flex flex-col min-w-0 sm:w-1/3">
+                                        <span
+                                            class="font-caption text-caption text-on-surface-variant uppercase tracking-wider">Sainik
+                                            Welfare Board</span>
+                                        <span class="font-label-md text-caption text-primary">संबद्ध राज्य व ज़िला सैनिक
+                                            बोर्ड</span>
+                                    </div>
+                                    <div class="flex-1 flex items-center justify-between gap-4">
+                                        <input
+                                            class="w-full bg-transparent font-headline-sm text-headline-sm text-primary focus:outline-none focus:bg-surface-container px-2 py-1 rounded"
+                                            id="field_zsb" readonly="" type="text"
+                                            value="Himachal Pradesh (Hamirpur Zila)">
+                                        <button
+                                            class="p-2 rounded-lg bg-surface-container hover:bg-secondary-fixed text-primary flex items-center gap-1 font-label-md text-caption shrink-0"
+                                            onclick="enableEdit('field_zsb')" type="button">
+                                            <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            <span class="hidden sm:inline">Edit</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="p-space-md rounded-xl bg-surface-container-lowest flex items-center justify-between gap-space-sm shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary text-[24px]">support</span>
+                                <div class="flex flex-col">
+                                    <span class="font-label-md text-label-md text-primary">Need a Zila Sainik Sahayak to
+                                        visit your home?</span>
+                                    <span class="font-caption text-caption text-on-surface-variant">Free home
+                                        documentation pickup available for widows across all districts.</span>
+                                </div>
+                            </div>
+                            <button
+                                class="shrink-0 px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-variant text-primary font-label-md text-caption transition-colors"
+                                type="button">
+                                Request Sahayak Visit
+                            </button>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-4 flex flex-col gap-space-md">
+                        <div
+                            class="bg-surface-container-lowest p-space-md rounded-2xl shadow-sm flex flex-col gap-space-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-lg text-label-lg text-primary">Document Confidence</span>
+                                <span
+                                    class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-md text-caption">High</span>
+                            </div>
+                            <div class="flex items-center justify-center py-4">
+                                <div class="relative w-36 h-36 flex items-center justify-center">
+                                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                                        <circle class="text-surface-container" cx="50" cy="50" fill="transparent" r="42"
+                                            stroke="currentColor" stroke-width="10"></circle>
+                                        <circle class="text-secondary-container" cx="50" cy="50" fill="transparent"
+                                            r="42" stroke="currentColor" stroke-dasharray="264" stroke-dashoffset="26"
+                                            stroke-width="10"></circle>
+                                    </svg>
+                                    <div class="absolute flex flex-col items-center justify-center">
+                                        <span
+                                            class="font-headline-lg text-headline-lg text-primary leading-none">92%</span>
+                                        <span
+                                            class="font-caption text-caption text-on-surface-variant mt-1">Accuracy</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2 pt-2">
+                                <div
+                                    class="flex items-center justify-between text-caption font-caption text-on-surface-variant">
+                                    <span>Record Office Part-II Order</span>
+                                    <span class="font-label-md text-on-surface">Verified</span>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between text-caption font-caption text-on-surface-variant">
+                                    <span>National War Memorial Registry</span>
+                                    <span class="font-label-md text-on-surface">Matched</span>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between text-caption font-caption text-on-surface-variant">
+                                    <span>SPARSH Pension ID Linkage</span>
+                                    <span class="font-label-md text-secondary">Pending Service Book</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rounded-2xl overflow-hidden shadow-sm bg-surface-container-lowest flex flex-col">
+                            <div class="h-44 w-full bg-cover bg-center relative"
+                                data-alt="Warm and respectful portrait of an Indian rural mother and daughter seated calmly in traditional attire, reviewing printed certificates in soft natural morning light in Himachal Pradesh, serene and dignified atmosphere"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBE2uRWFMFB1dfc8rNKbIubgpV1LYpgRThA0LU7LKVIA62usQRaSNmUXabsTWuqbWLdCVb_7bSrWAYn6Ci1RhBYQ5yqewB7v18B-dZm5p6t_893uGdvlpXdexlk65a9wPjSnhGiD9_cdTi37VdYQMEpWfL_W8F14SzCwyJoI4DRSYAtQsPGUo5g8KYALCUzVC5Q8jXmI9IXXKdeYD886XKvqudnfawW6RWQuam4kg7RXyNFu-9a2o5g')">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent">
+                                </div>
+                                <div class="absolute bottom-3 left-4 right-4 text-on-primary">
+                                    <span
+                                        class="font-label-md text-caption uppercase tracking-wider text-secondary-fixed">Dignity
+                                        First</span>
+                                    <p class="font-headline-sm text-label-lg leading-tight">Every benefit is your
+                                        rightful national honor.</p>
+                                </div>
+                            </div>
+                            <div class="p-space-md flex flex-col gap-2">
+                                <p class="font-caption text-caption text-on-surface-variant">
+                                    You are entitled to <strong>Liberalized Family Pension (100% of last pay)</strong>,
+                                    State Gallantry Ex-Gratia, AWES higher education quotas, and life-long ECHS cashless
+                                    medical care.
+                                </p>
+                                <div class="pt-2 flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+                                    <span class="font-caption text-caption text-primary">Recognized under MoD Special
+                                        Welfare Directive 1999</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sticky bottom-4 z-40 w-full mt-space-md">
+                    <div
+                        class="w-full bg-primary text-on-primary p-space-md rounded-2xl shadow-xl flex flex-col sm:flex-row items-center justify-between gap-space-md">
+                        <div class="flex items-center gap-space-sm w-full sm:w-auto">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center shrink-0">
+                                <span
+                                    class="material-symbols-outlined text-[28px] text-secondary-container">shield</span>
+                            </div>
+                            <div class="flex flex-col min-w-0">
+                                <span class="font-label-lg text-label-lg text-on-primary truncate">Ready for Entitlement
+                                    Calculation?</span>
+                                <span class="font-caption text-caption text-on-primary-container">Next: We will reveal
+                                    your customized 5 benefits and grants.</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-space-sm w-full sm:w-auto justify-end">
+                            <button
+                                class="w-full sm:w-auto px-space-md py-4 rounded-xl bg-primary-container hover:bg-on-primary-fixed-variant text-on-primary font-label-lg text-label-md transition-colors text-center"
+                                type="button">
+                                Save &amp; Continue Later
+                            </button>
+                            <button
+                                class="w-full sm:w-auto px-space-lg py-4 rounded-xl bg-secondary-container text-on-secondary-container hover:bg-secondary hover:text-on-secondary font-label-lg text-label-lg shadow-lg flex items-center justify-center gap-2 transition-all transform active:scale-95"
+                                onclick="confirmAndProceed()" type="button">
+                                <span>Confirm &amp; Find Entitlements</span>
+                                <span class="material-symbols-outlined text-[24px]">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fixed bottom-24 right-8 z-50 bg-inverse-surface text-inverse-on-surface px-space-md py-3 rounded-xl shadow-xl transition-opacity duration-300 opacity-0 pointer-events-none flex items-center gap-2"
+                id="toastMessage">
+                <span class="material-symbols-outlined text-secondary-container">check_circle</span>
+                <span class="font-label-md text-caption" id="toastText">Field editable now</span>
+            </div>
+        </div>
+        <script>
+            function enableEdit(fieldId) {
+                const input = document.getElementById(fieldId);
+                if (!input) return;
+                input.removeAttribute('readonly');
+                input.focus();
+                input.classList.add('bg-surface-container-highest', 'ring-2', 'ring-secondary');
+                showToast('Editing enabled for ' + input.value);
+
+                input.addEventListener('blur', function () {
+                    input.setAttribute('readonly', true);
+                    input.classList.remove('bg-surface-container-highest', 'ring-2', 'ring-secondary');
+                }, { once: true });
+            }
+
+            function showToast(msg) {
+                const toast = document.getElementById('toastMessage');
+                const toastText = document.getElementById('toastText');
+                if (!toast || !toastText) return;
+                toastText.innerText = msg;
+                toast.classList.remove('opacity-0', 'pointer-events-none');
+                toast.classList.add('opacity-100');
+                setTimeout(() => {
+                    toast.classList.remove('opacity-100');
+                    toast.classList.add('opacity-0', 'pointer-events-none');
+                }, 3000);
+            }
+
+            let isSpeaking = false;
+            function toggleAudioSpeech() {
+                const btn = document.getElementById('voiceNarratorBtn');
+                const icon = document.getElementById('speakerIcon');
+                if (!('speechSynthesis' in window)) {
+                    showToast('Audio synthesis not supported on this browser.');
+                    return;
+                }
+
+                if (isSpeaking) {
+                    window.speechSynthesis.cancel();
+                    isSpeaking = false;
+                    if (icon) icon.innerText = 'volume_up';
+                    showToast('Audio paused');
+                    return;
+                }
+
+                const narrative = 'दस्तावेज़ अपलोड और सत्यापन सहायता। हमने आपके कैजुअल्टी प्रमाण पत्र को सफलतापूर्वक स्कैन कर लिया है। शहीद सैनिक का नाम: स्वर्गीय राइफलमैन रमेश कुमार। रेजिमेंट: 13 जे ए के राइफल्स, कारगिल सेक्टर। आश्रित पत्नी: श्रीमती सुनीता देवी। कृपया नीचे दिए गए विवरण की पुष्टि करें।';
+                const utterance = new SpeechSynthesisUtterance(narrative);
+                utterance.lang = 'hi-IN';
+                utterance.rate = 0.9;
+
+                utterance.onend = () => {
+                    isSpeaking = false;
+                    if (icon) icon.innerText = 'volume_up';
+                };
+
+                window.speechSynthesis.speak(utterance);
+                isSpeaking = true;
+                if (icon) icon.innerText = 'volume_off';
+                showToast('Playing audio guide...');
+            }
+
+            function speakFieldDetails() {
+                if (!('speechSynthesis' in window)) {
+                    showToast('Voice not supported.');
+                    return;
+                }
+                window.speechSynthesis.cancel();
+                const details = 'सैनिक का नाम: स्वर्गीय राइफलमैन रमेश कुमार। सेना सेवा क्रमांक: JC-458921X। रेजिमेंट: 13 जे ए के राइफल्स। शहादत का प्रकार: बैटल कैजुअल्टी, ऑपरेशन विजय। वीर नारी: श्रीमती सुनीता देवी।';
+                const utterance = new SpeechSynthesisUtterance(details);
+                utterance.lang = 'hi-IN';
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+                showToast('Reading extracted entries...');
+            }
+
+            function confirmAndProceed() {
+                showToast('Details confirmed! Loading customized entitlements...');
+                setTimeout(() => {
+                    const entLink = document.querySelector('nav a[data-path="my-entitlements"]');
+                    if (entLink) {
+                        entLink.click();
+                    }
+                }, 800);
+            }
+        </script>
+    </main>
+    <footer class="w-full bg-surface-container-low text-on-surface mt-space-xl">
+        <div class="w-full h-[3px] flex">
+            <div class="h-full flex-1 bg-[#FF9933]"></div>
+            <div class="h-full flex-1 bg-[#FFFFFF]"></div>
+            <div class="h-full flex-1 bg-[#138808]"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg mb-space-lg">
+                <div class="flex flex-col gap-space-xs">
+                    <div class="flex items-center gap-space-xs">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-secondary-container">
+                            <span class="material-symbols-outlined text-[20px]">local_fire_department</span></div><span
+                            class="font-headline-sm text-headline-sm text-primary">वीर नारी साथी</span>
+                    </div>
+                    <p class="font-body-md text-body-md text-on-surface-variant">A compassionate, accessible welfare
+                        navigator dedicated to the widows, children, and dependent parents of Indian Armed Forces
+                        martyrs.</p>
+                </div>
+                <div class="flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg text-primary">Emergency
+                        &amp; Institutional Helplines</span>
+                    <ul class="flex flex-col gap-1 font-body-md text-body-md text-on-surface-variant">
+                        <li>KSB New Delhi: 1800-11-1971 / 011-26715250</li>
+                        <li>PCDA (P) Prayagraj Sparsh Helpline: 1800-180-5325</li>
+                        <li>Army Welfare Education Society (AWES): 011-26151564</li>
+                        <li>Naval Regimental System (NRS): 1800-22-0238</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col gap-space-xs"><span
+                        class="font-label-lg text-label-lg text-primary">Assistance Modes</span>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Need a Village Sahayak visit or home
+                        documentation help? Call your Zila Sainik Board or request a nodal officer check-in through your
+                        nearest Station HQ.</p>
+                    <div class="flex items-center gap-2"><span
+                            class="material-symbols-outlined text-secondary-container">record_voice_over</span><span
+                            class="font-label-md text-caption text-secondary">Screen reader &amp; Large-type
+                            compliant</span></div>
+                </div>
+            </div>
+            <div
+                class="p-space-md rounded-xl bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] mb-space-lg">
+                <p class="font-body-md text-caption text-on-surface-variant leading-relaxed"><strong
+                        class="text-on-surface font-label-md">Institutional Disclaimer:</strong> Veer Nari Saathi is an
+                    independent, non-commercial public welfare guidance companion. All pensions, grants, gallantry
+                    honorariums, and concessions are sanctioned and disbursed exclusively by the Principal Controller of
+                    Defence Accounts (PCDA - Prayagraj), Department of Ex-Servicemen Welfare (DESW), Ministry of
+                    Defence, and respective Service Record Offices (Army / Navy / Air Force).</p>
+            </div>
+            <div
+                class="flex flex-wrap items-center justify-between gap-space-sm text-caption font-caption text-on-surface-variant">
+                <p>© 2024 Veer Nari Saathi Welfare Collective. Dedicated with deepest reverence to the families of our
+                    fallen heroes.</p>
+                <div class="flex items-center gap-space-md"><a class="hover:text-on-surface transition-colors"
+                        href="#">Accessibility Statement</a><a class="hover:text-on-surface transition-colors"
+                        href="#">Zila Sainik Directory</a><a class="hover:text-on-surface transition-colors"
+                        href="#">Privacy Policy</a></div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="web_standard" name="shell-type">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <style>
+        @layer base {
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                overscroll-behavior: none;
+            }
+
+            main>:first-child {
+                margin-top: 0 !important;
+            }
+
+            main>:last-child {
+                margin-bottom: 0 !important;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+        id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "outline-variant": "#c5c6ce", "on-surface-variant": "#44474d", "primary-container": "#1b2a41", "surface-container": "#eaedff", "on-primary": "#ffffff", "on-secondary-container": "#663500", "tertiary-container": "#013200", "on-secondary": "#ffffff", "on-surface": "#131b2e", "error-container": "#ffdad6", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#035300", "tertiary-fixed-dim": "#72de5c", "on-tertiary": "#ffffff", "on-secondary-fixed-variant": "#6e3900", "on-primary-fixed": "#0c1c32", "inverse-primary": "#b8c7e5", "surface-dim": "#d2d9f4", "surface-container-highest": "#dae2fd", "surface-variant": "#dae2fd", "inverse-on-surface": "#eef0ff", "surface-container-low": "#f2f3ff", "on-error": "#ffffff", "surface": "#faf8ff", "on-primary-fixed-variant": "#394760", "inverse-surface": "#283044", "outline": "#75777e", "on-primary-container": "#8291ad", "secondary-fixed": "#ffdcc3", "surface-tint": "#505f79", "on-tertiary-container": "#3aa62b", "secondary": "#904d00", "on-error-container": "#93000a", "secondary-container": "#fe932c", "tertiary-fixed": "#8dfc75", "background": "#faf8ff", "on-tertiary-fixed": "#012200", "surface-bright": "#faf8ff", "on-secondary-fixed": "#2f1500", "error": "#ba1a1a", "primary-fixed-dim": "#b8c7e5", "primary-fixed": "#d5e3ff", "primary": "#05152b", "on-background": "#131b2e", "tertiary": "#001b00", "surface-container-high": "#e2e7ff", "secondary-fixed-dim": "#ffb77d" }, borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" }, spacing: { "margin-mobile": "1rem", "space-xl": "3rem", "space-xs": "0.375rem", "space-sm": "0.75rem", "space-lg": "2rem", "gutter-mobile": "1rem", "space-md": "1.25rem", margin: "2rem", gutter: "1.5rem" }, fontFamily: { "body-lg": ["Noto Sans"], "headline-sm": ["Noto Sans"], "headline-md": ["Noto Sans"], "headline-lg": ["Noto Sans"], "body-xl": ["Noto Sans"], caption: ["Noto Sans"], "label-md": ["Noto Sans"], "headline-xl-mobile": ["Noto Sans"], "headline-xl": ["Noto Sans"], "label-lg": ["Noto Sans"], "headline-lg-mobile": ["Noto Sans"], "body-md": ["Noto Sans"] }, fontSize: { "body-lg": ["18px", { lineHeight: "30px", fontWeight: "500" }], "headline-sm": ["22px", { lineHeight: "32px", fontWeight: "600" }], "headline-md": ["26px", { lineHeight: "36px", fontWeight: "600" }], "headline-lg": ["32px", { lineHeight: "44px", fontWeight: "700" }], "body-xl": ["20px", { lineHeight: "32px", fontWeight: "500" }], caption: ["14px", { lineHeight: "20px", fontWeight: "500" }], "label-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "headline-xl-mobile": ["28px", { lineHeight: "38px", fontWeight: "700" }], "headline-xl": ["40px", { lineHeight: "52px", fontWeight: "700" }], "label-lg": ["18px", { lineHeight: "24px", fontWeight: "600" }], "headline-lg-mobile": ["24px", { lineHeight: "34px", fontWeight: "700" }], "body-md": ["16px", { lineHeight: "26px", fontWeight: "400" }] } } } };</script>
+</head>
+
+<body
+    class="bg-background font-body-md text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
+        <div class="w-full h-[3px] flex">
+            <div class="h-full flex-1 bg-[#FF9933]"></div>
+            <div class="h-full flex-1 bg-[#FFFFFF]"></div>
+            <div class="h-full flex-1 bg-[#138808]"></div>
+        </div>
+        <div class="bg-primary text-on-primary py-space-xs px-margin-mobile lg:px-margin">
+            <div
+                class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-space-xs text-caption font-caption">
+                <div class="flex items-center gap-space-xs"><span
+                        class="material-symbols-outlined text-secondary-container text-[18px]">support_agent</span><span
+                        class="font-label-md text-caption">24x7 KSB Sahayata Toll-Free:</span><a
+                        class="font-headline-sm text-caption text-secondary-fixed underline hover:text-on-primary transition-colors"
+                        href="tel:1800111971">1800-11-1971</a><span
+                        class="hidden sm:inline text-outline-variant">|</span><span
+                        class="hidden sm:inline text-surface-container-highest">DESW &amp; Kendriya Sainik Board
+                        Guidance</span></div>
+                <div class="flex items-center gap-space-sm">
+                    <div class="flex items-center gap-1 bg-primary-container px-2 py-0.5 rounded"><span
+                            class="text-caption font-caption text-on-primary-container">Text Size:</span><button
+                            class="px-1.5 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-surface-variant hover:text-on-surface transition-colors"
+                            title="Decrease Text Size" type="button">A-</button><button
+                            class="px-1.5 py-0.5 rounded text-caption font-label-md text-on-primary bg-surface-variant text-on-surface"
+                            title="Normal Text Size" type="button">A</button><button
+                            class="px-1.5 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-surface-variant hover:text-on-surface transition-colors"
+                            title="Increase Text Size" type="button">A+</button></div>
+                    <div class="flex items-center gap-1"><button
+                            class="px-2 py-0.5 rounded text-caption font-label-md bg-secondary-container text-on-secondary-container"
+                            type="button">EN</button><button
+                            class="px-2 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-primary-container transition-colors"
+                            type="button">हिन्दी</button><button
+                            class="px-2 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-primary-container transition-colors"
+                            type="button">मराठी</button><button
+                            class="px-2 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-primary-container transition-colors"
+                            type="button">ਪੰਜਾਬੀ</button></div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="h-28 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md">
+            <div class="flex items-center gap-space-sm">
+                <div
+                    class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center text-secondary-container shadow-[0_1px_8px_rgba(0,0,0,0.08)]">
+                    <span class="material-symbols-outlined text-[28px]">local_fire_department</span></div>
+                <div class="flex flex-col"><span
+                        class="font-headline-md text-headline-sm md:text-headline-md text-primary leading-tight tracking-tight">वीर
+                        नारी साथी</span><span
+                        class="font-label-md text-caption md:text-label-md text-on-surface-variant tracking-normal">Veer
+                        Nari Saathi • Armed Forces Family Navigator</span></div>
+            </div>
+            <div class="flex items-center gap-space-sm"><button
+                    class="flex items-center gap-2 h-14 px-space-md rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-lg text-label-lg shadow-[0_1px_8px_rgba(0,0,0,0.06)] hover:bg-secondary-container hover:text-on-secondary-container transition-colors"
+                    type="button"><span class="material-symbols-outlined text-[24px]">volume_up</span><span>सुनें /
+                        Listen</span></button>
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span
+                        class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
+            </div>
+        </div>
+        <div class="bg-surface-container-low">
+            <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin">
+                <nav class="flex items-center gap-space-xs overflow-x-auto py-2"
+                    data-active-classes="bg-primary-container text-on-primary font-label-lg rounded-lg"><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="home" href="#">Home / मुख्य पृष्ठ</a><a aria-current="page"
+                        class="shrink-0 px-space-md py-2.5 transition-colors bg-primary-container text-on-primary font-label-lg rounded-lg"
+                        data-path="eligibility-finder" href="#">Eligibility Finder / पात्रता खोज</a><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="document-assistant" href="#">Document Assistant / दस्तावेज़</a><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="my-entitlements" href="#">My Entitlements / अधिकार (5)</a><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="benefit-guides-letters" href="#">Benefit Guides &amp; Letters / पत्र प्रारूप</a><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="my-checklist" href="#">My Checklist / चेकलिस्ट</a></nav>
+            </div>
+        </div>
+    </header>
+    <main class="w-full pt-44 bg-surface min-h-[calc(100vh-200px)]">
+        <div class="flex flex-col w-full">
+            <div class="w-full h-1 flex">
+                <div class="h-full flex-1 bg-secondary-container"></div>
+                <div class="h-full flex-1 bg-surface-container-lowest"></div>
+                <div class="h-full flex-1 bg-on-tertiary-container"></div>
+            </div>
+            <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-md lg:py-space-lg w-full">
+                <div class="flex flex-wrap items-center justify-between gap-space-sm mb-space-md">
+                    <div class="flex items-center gap-2">
+                        <span
+                            class="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-md text-caption uppercase tracking-wider">PCDA
+                            / DESW Assisted Pathway</span>
+                        <span class="text-on-surface-variant font-caption text-caption hidden sm:inline">• Form 14
+                            Pension Navigation</span>
+                    </div>
+                    <div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-caption">
+                        <span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim"
+                            style="font-variation-settings: 'FILL' 1;">security</span>
+                        <span>Secure &amp; Non-Commercial Civic Guidance</span>
+                    </div>
+                </div>
+                <!-- Progress Tracker Strip -->
+                <div
+                    class="w-full bg-surface-container-lowest p-space-md lg:p-space-lg rounded-xl shadow-md mb-space-lg">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm mb-space-sm">
+                        <div class="flex flex-col">
+                            <span
+                                class="font-label-lg text-label-md text-secondary font-semibold uppercase tracking-wider">Step
+                                1 of 5</span>
+                            <h1 class="font-headline-lg text-headline-sm md:text-headline-lg text-primary">Relationship
+                                to the Fallen Soldier / संबंध चयन</h1>
+                        </div>
+                        <button aria-label="Read this question aloud"
+                            class="shrink-0 flex items-center justify-center gap-2 h-14 px-space-md rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-lg text-label-lg hover:bg-secondary-container hover:text-on-secondary-container transition-colors shadow-sm"
+                            id="speak-question-btn" type="button">
+                            <span class="material-symbols-outlined text-[24px]">volume_up</span>
+                            <span>Read this question aloud (प्रश्न सुनें)</span>
+                        </button>
+                    </div>
+                    <!-- High-contrast Progress Bar: 20% Filled -->
+                    <div class="w-full">
+                        <div
+                            class="flex items-center justify-between text-caption font-label-md text-on-surface-variant mb-2">
+                            <span>Question Progress: 20% Completed</span>
+                            <span>4 Questions Remaining</span>
+                        </div>
+                        <div class="w-full h-4 bg-surface-container-highest rounded-full overflow-hidden">
+                            <div class="h-full bg-secondary-container rounded-full transition-all duration-500"
+                                style="width: 20%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Main Two-Column Layout (Desktop split: Question flow vs Ledger Drawer) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+                    <!-- Primary Transactional Navigator (8 Cols) -->
+                    <div class="lg:col-span-8 flex flex-col gap-space-md">
+                        <!-- Big Question Header Box -->
+                        <div class="bg-surface-container-lowest p-space-md lg:p-space-lg rounded-xl shadow-md">
+                            <div class="flex items-start gap-space-sm">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-primary text-secondary-fixed flex items-center justify-center shrink-0">
+                                    <span class="font-headline-md text-headline-sm">Q1</span>
+                                </div>
+                                <div class="flex flex-col">
+                                    <h2
+                                        class="font-headline-lg text-headline-sm md:text-headline-lg text-primary leading-snug">
+                                        What is your relationship to the Braveheart (Martyr / Ex-Serviceman)?
+                                    </h2>
+                                    <p
+                                        class="font-body-xl text-body-lg md:text-body-xl text-on-surface-variant mt-2 leading-relaxed">
+                                        This ensures we check the exact family pension rules (<span
+                                            class="font-semibold text-primary">Special Family Pension</span> vs <span
+                                            class="font-semibold text-primary">Liberalized Family Pension</span>) and
+                                        relevant education &amp; housing state grants.
+                                    </p>
+                                    <p class="font-body-md text-body-md text-secondary mt-1">
+                                        शहीद या पूर्व सैनिक के साथ आपका क्या संबंध है? सही श्रेणी से सटीक पेंशन लाभ तय
+                                        होते हैं।
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Option Selection Cards -->
+                        <fieldset class="flex flex-col gap-space-sm">
+                            <legend class="sr-only">Choose your relationship to the fallen soldier</legend>
+                            <!-- Option A: Veer Nari (Selected Default) -->
+                            <label
+                                class="relative flex items-center gap-space-md p-space-md rounded-xl bg-surface-container-low cursor-pointer shadow-sm transition-all hover:bg-surface-container-high"
+                                id="opt-a-label" style="outline: 3px solid #fe932c;">
+                                <input checked="" class="sr-only peer" name="relationship" type="radio"
+                                    value="veer_nari">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary shrink-0 shadow-sm">
+                                    <span class="material-symbols-outlined text-[20px]"
+                                        style="font-variation-settings: 'FILL' 1;">check</span>
+                                </div>
+                                <div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div class="flex flex-col">
+                                        <div class="flex items-center gap-2 flex-wrap">
+                                            <span
+                                                class="font-headline-sm text-body-xl md:text-headline-sm text-primary">Veer
+                                                Nari (Wife / Widow of the Soldier)</span>
+                                            <span
+                                                class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-caption uppercase tracking-wider">Most
+                                                Common / अधिकांश</span>
+                                        </div>
+                                        <span class="font-body-md text-body-md text-on-surface-variant">वीर नारी /
+                                            धर्मपत्नी (Eligible for Full SFP/LFP &amp; CSD / ECHS Cardholder
+                                            entitlements)</span>
+                                    </div>
+                                    <button
+                                        class="shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-lowest text-secondary font-label-md text-caption shadow-sm hover:bg-secondary-fixed"
+                                        onclick="event.preventDefault(); playSound('Veer Nari, Wife or Widow of the soldier');"
+                                        type="button">
+                                        <span class="material-symbols-outlined text-[18px]">volume_up</span>
+                                        <span>सुनें</span>
+                                    </button>
+                                </div>
+                            </label>
+                            <!-- Option B: Parents -->
+                            <label
+                                class="relative flex items-center gap-space-md p-space-md rounded-xl bg-surface-container-lowest cursor-pointer shadow-sm transition-all hover:bg-surface-container-low">
+                                <input class="sr-only peer" name="relationship" type="radio" value="parents">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary shrink-0">
+                                    <span
+                                        class="w-3.5 h-3.5 rounded-full bg-transparent peer-checked:bg-primary"></span>
+                                </div>
+                                <div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="font-headline-sm text-body-xl md:text-headline-sm text-primary">Mother
+                                            / Father of Unmarried Soldier</span>
+                                        <span class="font-body-md text-body-md text-on-surface-variant">माता / पिता
+                                            (Unmarried martyrs allow dependent parents standard first-line pension
+                                            claims)</span>
+                                    </div>
+                                    <button
+                                        class="shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary font-label-md text-caption hover:bg-secondary-fixed"
+                                        onclick="event.preventDefault(); playSound('Mother or Father of unmarried soldier');"
+                                        type="button">
+                                        <span class="material-symbols-outlined text-[18px]">volume_up</span>
+                                        <span>सुनें</span>
+                                    </button>
+                                </div>
+                            </label>
+                            <!-- Option C: Dependent Child -->
+                            <label
+                                class="relative flex items-center gap-space-md p-space-md rounded-xl bg-surface-container-lowest cursor-pointer shadow-sm transition-all hover:bg-surface-container-low">
+                                <input class="sr-only peer" name="relationship" type="radio" value="child">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary shrink-0">
+                                    <span
+                                        class="w-3.5 h-3.5 rounded-full bg-transparent peer-checked:bg-primary"></span>
+                                </div>
+                                <div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="font-headline-sm text-body-xl md:text-headline-sm text-primary">Dependent
+                                            Child / Daughter (Unmarried/Divorced)</span>
+                                        <span class="font-body-md text-body-md text-on-surface-variant">आश्रित बेटा /
+                                            अविवाहित, विधवा या तलाकशुदा बेटी (Children education allowances &amp;
+                                            lifelong pension if eligible)</span>
+                                    </div>
+                                    <button
+                                        class="shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary font-label-md text-caption hover:bg-secondary-fixed"
+                                        onclick="event.preventDefault(); playSound('Dependent child or daughter');"
+                                        type="button">
+                                        <span class="material-symbols-outlined text-[18px]">volume_up</span>
+                                        <span>सुनें</span>
+                                    </button>
+                                </div>
+                            </label>
+                            <!-- Option D: Sibling -->
+                            <label
+                                class="relative flex items-center gap-space-md p-space-md rounded-xl bg-surface-container-lowest cursor-pointer shadow-sm transition-all hover:bg-surface-container-low">
+                                <input class="sr-only peer" name="relationship" type="radio" value="sibling">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary shrink-0">
+                                    <span
+                                        class="w-3.5 h-3.5 rounded-full bg-transparent peer-checked:bg-primary"></span>
+                                </div>
+                                <div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="font-headline-sm text-body-xl md:text-headline-sm text-primary">Brother
+                                            / Sister (Special circumstances)</span>
+                                        <span class="font-body-md text-body-md text-on-surface-variant">भाई / बहन (Under
+                                            verified dependency without surviving parents or spouse)</span>
+                                    </div>
+                                    <button
+                                        class="shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary font-label-md text-caption hover:bg-secondary-fixed"
+                                        onclick="event.preventDefault(); playSound('Brother or sister in special circumstances');"
+                                        type="button">
+                                        <span class="material-symbols-outlined text-[18px]">volume_up</span>
+                                        <span>सुनें</span>
+                                    </button>
+                                </div>
+                            </label>
+                            <!-- Option E: Guardian -->
+                            <label
+                                class="relative flex items-center gap-space-md p-space-md rounded-xl bg-surface-container-lowest cursor-pointer shadow-sm transition-all hover:bg-surface-container-low">
+                                <input class="sr-only peer" name="relationship" type="radio" value="guardian">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary shrink-0">
+                                    <span
+                                        class="w-3.5 h-3.5 rounded-full bg-transparent peer-checked:bg-primary"></span>
+                                </div>
+                                <div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="font-headline-sm text-body-xl md:text-headline-sm text-primary">Legal
+                                            Guardian / Appointed Caregiver</span>
+                                        <span class="font-body-md text-body-md text-on-surface-variant">कानूनी अभिभावक /
+                                            कोर्ट द्वारा नियुक्त संरक्षक (Filing on behalf of minor or incapacitated
+                                            beneficiaries)</span>
+                                    </div>
+                                    <button
+                                        class="shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-low text-secondary font-label-md text-caption hover:bg-secondary-fixed"
+                                        onclick="event.preventDefault(); playSound('Legal Guardian or Appointed Caregiver');"
+                                        type="button">
+                                        <span class="material-symbols-outlined text-[18px]">volume_up</span>
+                                        <span>सुनें</span>
+                                    </button>
+                                </div>
+                            </label>
+                        </fieldset>
+                        <!-- Official Rule Explainer Card (Tactile Clarity) -->
+                        <div
+                            class="p-space-md rounded-xl bg-surface-container-lowest shadow-md flex items-start gap-space-sm">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-primary-container text-secondary-container flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[24px]">verified_user</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="font-label-lg text-label-md text-primary font-semibold">Special Family
+                                    Pension (SFP) Clarification</span>
+                                <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+                                    Under Regulation 213 of Pension Regulations for the Army (Part 1), the first
+                                    nominated heir or legal widow retains primacy for continuous grant of Ordinary or
+                                    Special Family Pension. If you have inquiries regarding disputed nomination or
+                                    partition grants, your Zila Sainik Welfare Office will assign a dedicated welfare
+                                    inspector.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Primary Action Navigation Footer -->
+                        <div
+                            class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-md">
+                            <button
+                                class="h-14 px-space-lg rounded-lg bg-surface-container-highest text-primary font-label-lg text-label-lg hover:bg-surface-container transition-colors shadow-sm flex items-center justify-center gap-2"
+                                type="button">
+                                <span class="material-symbols-outlined text-[22px]">arrow_back</span>
+                                <span>← Back / वापस</span>
+                            </button>
+                            <a class="h-16 px-space-lg rounded-lg bg-secondary-container text-on-secondary-container font-label-lg text-body-xl hover:bg-secondary hover:text-on-secondary transition-all shadow-md flex items-center justify-center gap-3"
+                                href="#">
+                                <span>Next Step: Service Branch</span>
+                                <span class="material-symbols-outlined text-[24px]">arrow_forward</span>
+                            </a>
+                        </div>
+                        <!-- Help Guidance Note -->
+                        <div
+                            class="p-space-sm rounded-lg bg-surface-container-low flex items-center gap-space-xs text-on-surface-variant">
+                            <span
+                                class="material-symbols-outlined text-secondary-container text-[20px] shrink-0">info</span>
+                            <p class="font-body-md text-caption md:text-body-md">
+                                Unsure? Call toll-free <a class="text-secondary font-bold underline"
+                                    href="tel:1800111971">1800-11-1971</a> for free live assistance, or select <span
+                                    class="font-semibold text-primary">"Veer Nari (Wife / Widow)"</span> if you hold the
+                                Service Discharge Book.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Right Column: Step Ledger & Directory Guidance (4 Cols) -->
+                    <aside class="lg:col-span-4 flex flex-col gap-space-md">
+                        <!-- Interactive Step Roadmap Preview -->
+                        <div class="bg-surface-container-lowest p-space-md rounded-xl shadow-md">
+                            <div class="flex items-center justify-between pb-space-sm mb-space-sm border-b-0">
+                                <span class="font-label-lg text-label-md text-primary font-bold">Guided Evaluation
+                                    Path</span>
+                                <span
+                                    class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-caption text-caption">5
+                                    Steps Total</span>
+                            </div>
+                            <ol class="flex flex-col gap-space-sm">
+                                <!-- Step 1 (Active) -->
+                                <li class="flex items-start gap-3 p-3 rounded-lg bg-surface-container-low">
+                                    <div
+                                        class="w-7 h-7 rounded-full bg-primary text-secondary-container flex items-center justify-center font-bold text-caption shrink-0">
+                                        1
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="font-label-md text-label-md text-primary font-bold">1. Relationship
+                                            to Soldier</span>
+                                        <span class="font-caption text-caption text-secondary font-semibold">Current
+                                            Step • वर्तमान चरण</span>
+                                    </div>
+                                </li>
+                                <!-- Step 2 -->
+                                <li class="flex items-start gap-3 p-3 rounded-lg opacity-75">
+                                    <div
+                                        class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold text-caption shrink-0">
+                                        2
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="font-label-md text-label-md text-on-surface">2. Service
+                                            Branch</span>
+                                        <span class="font-caption text-caption text-on-surface-variant">Army, Navy, or
+                                            Air Force</span>
+                                    </div>
+                                </li>
+                                <!-- Step 3 -->
+                                <li class="flex items-start gap-3 p-3 rounded-lg opacity-75">
+                                    <div
+                                        class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold text-caption shrink-0">
+                                        3
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="font-label-md text-label-md text-on-surface">3. Cause &amp; Year of
+                                            Casualty</span>
+                                        <span class="font-caption text-caption text-on-surface-variant">Battle vs
+                                            Physical casualty rules</span>
+                                    </div>
+                                </li>
+                                <!-- Step 4 -->
+                                <li class="flex items-start gap-3 p-3 rounded-lg opacity-75">
+                                    <div
+                                        class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold text-caption shrink-0">
+                                        4
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="font-label-md text-label-md text-on-surface">4. State of
+                                            Residence</span>
+                                        <span class="font-caption text-caption text-on-surface-variant">State ex-gratia
+                                            &amp; land allotment</span>
+                                    </div>
+                                </li>
+                                <!-- Step 5 -->
+                                <li class="flex items-start gap-3 p-3 rounded-lg opacity-75">
+                                    <div
+                                        class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold text-caption shrink-0">
+                                        5
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="font-label-md text-label-md text-on-surface">5. Dependent
+                                            Children</span>
+                                        <span class="font-caption text-caption text-on-surface-variant">AWES &amp; PM
+                                            Scholarship grants</span>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                        <!-- Trust & Dignity Badge Card with Image Placeholder -->
+                        <div
+                            class="bg-surface-container-lowest p-space-md rounded-xl shadow-md overflow-hidden flex flex-col">
+                            <div class="relative w-full h-44 rounded-lg overflow-hidden mb-space-sm">
+                                <img class="w-full h-full object-cover"
+                                    data-alt="A dignified, respectful photograph of an Indian Army veteran family officer assisting an elderly Veer Nari with administrative records in a bright, peaceful office. The scene is illuminated by gentle morning light, conveying trust, honor, and deep reverence. Rich deep navy tones and warm amber saffron accents harmonize throughout the space."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRCGVbcFsq6GpONfvRMeGyPrg3DvcwHVJ93aIJT312D5vPQQw8URbmSpOGsr5NaGyNMOGCEClOXEE4lVOle9vk0omh4-poKKFV5CdpwC8By21PtPGiqKl2Ebl2f8hwPxdAgm_O1J-SQMeEXVYHYKyhWvq9ExhZzBFtJaTeTULvfPFofgBghvcSmSIIywQHngtBuXXqvQIefoUR7JDT0CRpPRnzLxpiWGsZYSvg3siNmkJoDTlAYQcx">
+                                <div class="absolute inset-0 bg-primary/20"></div>
+                                <div
+                                    class="absolute bottom-2 left-2 px-2 py-1 rounded bg-primary text-on-primary font-caption text-caption font-semibold">
+                                    Kendriya Sainik Board Sahayata
+                                </div>
+                            </div>
+                            <span class="font-label-lg text-label-md text-primary font-semibold">Dedicated Nodal Sahayak
+                                Support</span>
+                            <p class="font-body-md text-caption text-on-surface-variant mt-1 leading-relaxed">
+                                Every step you complete generates an automatic checklist cross-referenced with your
+                                Record Office (e.g. Rajputana Rifles, Sikh Regt, Maratha LI, AMC, Navy NRS). If you
+                                prefer offline submission, your local Zila Sainik Welfare Officer (ZSWO) receives your
+                                validated dossier.
+                            </p>
+                        </div>
+                        <!-- Instant Help Callout -->
+                        <div
+                            class="bg-primary text-on-primary p-space-md rounded-xl shadow-md flex flex-col gap-space-xs">
+                            <div class="flex items-center gap-2">
+                                <span
+                                    class="material-symbols-outlined text-secondary-container text-[24px]">perm_phone_msg</span>
+                                <span class="font-label-lg text-label-md text-secondary-fixed">Live Guidance Line</span>
+                            </div>
+                            <p class="font-body-md text-caption text-inverse-on-surface">
+                                Speaking with a counselor in Hindi, Punjabi, Marathi, or English is completely free of
+                                charge.
+                            </p>
+                            <a class="mt-2 h-12 rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-secondary-fixed transition-colors"
+                                href="tel:1800111971">
+                                <span class="material-symbols-outlined text-[20px]">call</span>
+                                <span>Dial 1800-11-1971</span>
+                            </a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+            <!-- Floating Audio Helper Pill (Fixed at bottom for easy one-tap thumb access) -->
+            <div class="fixed bottom-6 right-6 z-40">
+                <button aria-label="Listen to all options"
+                    class="flex items-center gap-3 px-5 py-3.5 rounded-full bg-secondary-container text-on-secondary-container font-label-lg text-label-lg shadow-xl hover:bg-secondary hover:text-on-secondary transition-all transform hover:scale-105"
+                    id="floating-audio-btn" type="button">
+                    <span class="material-symbols-outlined text-[26px]">record_voice_over</span>
+                    <span>🔊 Listen to options (विकल्प सुनें)</span>
+                </button>
+            </div>
+        </div>
+        <script>
+            function playSound(text) {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.rate = 0.9;
+                    utterance.pitch = 1.0;
+                    utterance.lang = 'en-IN';
+                    window.speechSynthesis.speak(utterance);
+                }
+            }
+
+            const speakQuestionBtn = document.getElementById('speak-question-btn');
+            if (speakQuestionBtn) {
+                speakQuestionBtn.addEventListener('click', function () {
+                    playSound("Step 1 of 5. Question: What is your relationship to the Braveheart martyr or ex-serviceman? This ensures we verify exact pension entitlements.");
+                });
+            }
+
+            const floatingAudioBtn = document.getElementById('floating-audio-btn');
+            if (floatingAudioBtn) {
+                floatingAudioBtn.addEventListener('click', function () {
+                    playSound("Option 1: Veer Nari, wife or widow of the soldier. Option 2: Mother or father of unmarried soldier. Option 3: Dependent child or daughter. Option 4: Brother or sister. Option 5: Legal guardian.");
+                });
+            }
+
+            // Radio selection style toggling
+            const labels = document.querySelectorAll('fieldset label');
+            labels.forEach(lbl => {
+                lbl.addEventListener('click', function () {
+                    labels.forEach(l => {
+                        l.style.outline = 'none';
+                        l.classList.remove('bg-surface-container-low');
+                        l.classList.add('bg-surface-container-lowest');
+                        const iconContainer = l.querySelector('div:first-of-type');
+                        if (iconContainer) {
+                            iconContainer.className = 'w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary shrink-0';
+                            iconContainer.innerHTML = '<span class="w-3.5 h-3.5 rounded-full bg-transparent"></span>';
+                        }
+                    });
+                    this.style.outline = '3px solid #fe932c';
+                    this.classList.remove('bg-surface-container-lowest');
+                    this.classList.add('bg-surface-container-low');
+                    const activeIcon = this.querySelector('div:first-of-type');
+                    if (activeIcon) {
+                        activeIcon.className = 'w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary shrink-0 shadow-sm';
+                        activeIcon.innerHTML = '<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: \'FILL\' 1;">check</span>';
+                    }
+                });
+            });
+        </script>
+    </main>
+    <footer class="w-full bg-surface-container-low text-on-surface mt-space-xl">
+        <div class="w-full h-[3px] flex">
+            <div class="h-full flex-1 bg-[#FF9933]"></div>
+            <div class="h-full flex-1 bg-[#FFFFFF]"></div>
+            <div class="h-full flex-1 bg-[#138808]"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg mb-space-lg">
+                <div class="flex flex-col gap-space-xs">
+                    <div class="flex items-center gap-space-xs">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-secondary-container">
+                            <span class="material-symbols-outlined text-[20px]">local_fire_department</span></div><span
+                            class="font-headline-sm text-headline-sm text-primary">वीर नारी साथी</span>
+                    </div>
+                    <p class="font-body-md text-body-md text-on-surface-variant">A compassionate, accessible welfare
+                        navigator dedicated to the widows, children, and dependent parents of Indian Armed Forces
+                        martyrs.</p>
+                </div>
+                <div class="flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg text-primary">Emergency
+                        &amp; Institutional Helplines</span>
+                    <ul class="flex flex-col gap-1 font-body-md text-body-md text-on-surface-variant">
+                        <li>KSB New Delhi: 1800-11-1971 / 011-26715250</li>
+                        <li>PCDA (P) Prayagraj Sparsh Helpline: 1800-180-5325</li>
+                        <li>Army Welfare Education Society (AWES): 011-26151564</li>
+                        <li>Naval Regimental System (NRS): 1800-22-0238</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col gap-space-xs"><span
+                        class="font-label-lg text-label-lg text-primary">Assistance Modes</span>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Need a Village Sahayak visit or home
+                        documentation help? Call your Zila Sainik Board or request a nodal officer check-in through your
+                        nearest Station HQ.</p>
+                    <div class="flex items-center gap-2"><span
+                            class="material-symbols-outlined text-secondary-container">record_voice_over</span><span
+                            class="font-label-md text-caption text-secondary">Screen reader &amp; Large-type
+                            compliant</span></div>
+                </div>
+            </div>
+            <div
+                class="p-space-md rounded-xl bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] mb-space-lg">
+                <p class="font-body-md text-caption text-on-surface-variant leading-relaxed"><strong
+                        class="text-on-surface font-label-md">Institutional Disclaimer:</strong> Veer Nari Saathi is an
+                    independent, non-commercial public welfare guidance companion. All pensions, grants, gallantry
+                    honorariums, and concessions are sanctioned and disbursed exclusively by the Principal Controller of
+                    Defence Accounts (PCDA - Prayagraj), Department of Ex-Servicemen Welfare (DESW), Ministry of
+                    Defence, and respective Service Record Offices (Army / Navy / Air Force).</p>
+            </div>
+            <div
+                class="flex flex-wrap items-center justify-between gap-space-sm text-caption font-caption text-on-surface-variant">
+                <p>© 2024 Veer Nari Saathi Welfare Collective. Dedicated with deepest reverence to the families of our
+                    fallen heroes.</p>
+                <div class="flex items-center gap-space-md"><a class="hover:text-on-surface transition-colors"
+                        href="#">Accessibility Statement</a><a class="hover:text-on-surface transition-colors"
+                        href="#">Zila Sainik Directory</a><a class="hover:text-on-surface transition-colors"
+                        href="#">Privacy Policy</a></div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

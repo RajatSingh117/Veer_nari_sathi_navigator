@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="web_standard" name="shell-type">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <style>
+        @layer base {
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                overscroll-behavior: none;
+            }
+
+            main>:first-child {
+                margin-top: 0 !important;
+            }
+
+            main>:last-child {
+                margin-bottom: 0 !important;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+        id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "outline-variant": "#c5c6ce", "on-surface-variant": "#44474d", "primary-container": "#1b2a41", "surface-container": "#eaedff", "on-primary": "#ffffff", "on-secondary-container": "#663500", "tertiary-container": "#013200", "on-secondary": "#ffffff", "on-surface": "#131b2e", "error-container": "#ffdad6", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#035300", "tertiary-fixed-dim": "#72de5c", "on-tertiary": "#ffffff", "on-secondary-fixed-variant": "#6e3900", "on-primary-fixed": "#0c1c32", "inverse-primary": "#b8c7e5", "surface-dim": "#d2d9f4", "surface-container-highest": "#dae2fd", "surface-variant": "#dae2fd", "inverse-on-surface": "#eef0ff", "surface-container-low": "#f2f3ff", "on-error": "#ffffff", "surface": "#faf8ff", "on-primary-fixed-variant": "#394760", "inverse-surface": "#283044", "outline": "#75777e", "on-primary-container": "#8291ad", "secondary-fixed": "#ffdcc3", "surface-tint": "#505f79", "on-tertiary-container": "#3aa62b", "secondary": "#904d00", "on-error-container": "#93000a", "secondary-container": "#fe932c", "tertiary-fixed": "#8dfc75", "background": "#faf8ff", "on-tertiary-fixed": "#012200", "surface-bright": "#faf8ff", "on-secondary-fixed": "#2f1500", "error": "#ba1a1a", "primary-fixed-dim": "#b8c7e5", "primary-fixed": "#d5e3ff", "primary": "#05152b", "on-background": "#131b2e", "tertiary": "#001b00", "surface-container-high": "#e2e7ff", "secondary-fixed-dim": "#ffb77d" }, borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" }, spacing: { "margin-mobile": "1rem", "space-xl": "3rem", "space-xs": "0.375rem", "space-sm": "0.75rem", "space-lg": "2rem", "gutter-mobile": "1rem", "space-md": "1.25rem", margin: "2rem", gutter: "1.5rem" }, fontFamily: { "body-lg": ["Noto Sans"], "headline-sm": ["Noto Sans"], "headline-md": ["Noto Sans"], "headline-lg": ["Noto Sans"], "body-xl": ["Noto Sans"], caption: ["Noto Sans"], "label-md": ["Noto Sans"], "headline-xl-mobile": ["Noto Sans"], "headline-xl": ["Noto Sans"], "label-lg": ["Noto Sans"], "headline-lg-mobile": ["Noto Sans"], "body-md": ["Noto Sans"] }, fontSize: { "body-lg": ["18px", { lineHeight: "30px", fontWeight: "500" }], "headline-sm": ["22px", { lineHeight: "32px", fontWeight: "600" }], "headline-md": ["26px", { lineHeight: "36px", fontWeight: "600" }], "headline-lg": ["32px", { lineHeight: "44px", fontWeight: "700" }], "body-xl": ["20px", { lineHeight: "32px", fontWeight: "500" }], caption: ["14px", { lineHeight: "20px", fontWeight: "500" }], "label-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "headline-xl-mobile": ["28px", { lineHeight: "38px", fontWeight: "700" }], "headline-xl": ["40px", { lineHeight: "52px", fontWeight: "700" }], "label-lg": ["18px", { lineHeight: "24px", fontWeight: "600" }], "headline-lg-mobile": ["24px", { lineHeight: "34px", fontWeight: "700" }], "body-md": ["16px", { lineHeight: "26px", fontWeight: "400" }] } } } };</script>
+</head>
+
+<body
+    class="bg-background font-body-md text-on-surface antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
+        <div class="w-full h-[3px] flex">
+            <div class="h-full flex-1 bg-[#FF9933]"></div>
+            <div class="h-full flex-1 bg-[#FFFFFF]"></div>
+            <div class="h-full flex-1 bg-[#138808]"></div>
+        </div>
+        <div class="bg-primary text-on-primary py-space-xs px-margin-mobile lg:px-margin">
+            <div
+                class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-space-xs text-caption font-caption">
+                <div class="flex items-center gap-space-xs"><span
+                        class="material-symbols-outlined text-secondary-container text-[18px]">support_agent</span><span
+                        class="font-label-md text-caption">24x7 KSB Sahayata Toll-Free:</span><a
+                        class="font-headline-sm text-caption text-secondary-fixed underline hover:text-on-primary transition-colors"
+                        href="tel:1800111971">1800-11-1971</a><span
+                        class="hidden sm:inline text-outline-variant">|</span><span
+                        class="hidden sm:inline text-surface-container-highest">DESW &amp; Kendriya Sainik Board
+                        Guidance</span></div>
+                <div class="flex items-center gap-space-sm">
+                    <div class="flex items-center gap-1 bg-primary-container px-2 py-0.5 rounded"><span
+                            class="text-caption font-caption text-on-primary-container">Text Size:</span><button
+                            class="px-1.5 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-surface-variant hover:text-on-surface transition-colors"
+                            title="Decrease Text Size" type="button">A-</button><button
+                            class="px-1.5 py-0.5 rounded text-caption font-label-md text-on-primary bg-surface-variant text-on-surface"
+                            title="Normal Text Size" type="button">A</button><button
+                            class="px-1.5 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-surface-variant hover:text-on-surface transition-colors"
+                            title="Increase Text Size" type="button">A+</button></div>
+                    <div class="flex items-center gap-1"><button
+                            class="px-2 py-0.5 rounded text-caption font-label-md bg-secondary-container text-on-secondary-container"
+                            type="button">EN</button><button
+                            class="px-2 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-primary-container transition-colors"
+                            type="button">हिन्दी</button><button
+                            class="px-2 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-primary-container transition-colors"
+                            type="button">मराठी</button><button
+                            class="px-2 py-0.5 rounded text-caption font-label-md text-on-primary hover:bg-primary-container transition-colors"
+                            type="button">ਪੰਜਾਬੀ</button></div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="h-28 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md">
+            <div class="flex items-center gap-space-sm">
+                <div
+                    class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center text-secondary-container shadow-[0_1px_8px_rgba(0,0,0,0.08)]">
+                    <span class="material-symbols-outlined text-[28px]">local_fire_department</span></div>
+                <div class="flex flex-col"><span
+                        class="font-headline-md text-headline-sm md:text-headline-md text-primary leading-tight tracking-tight">वीर
+                        नारी साथी</span><span
+                        class="font-label-md text-caption md:text-label-md text-on-surface-variant tracking-normal">Veer
+                        Nari Saathi • Armed Forces Family Navigator</span></div>
+            </div>
+            <div class="flex items-center gap-space-sm"><button
+                    class="flex items-center gap-2 h-14 px-space-md rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-lg text-label-lg shadow-[0_1px_8px_rgba(0,0,0,0.06)] hover:bg-secondary-container hover:text-on-secondary-container transition-colors"
+                    type="button"><span class="material-symbols-outlined text-[24px]">volume_up</span><span>सुनें /
+                        Listen</span></button>
+                <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span
+                        class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
+            </div>
+        </div>
+        <div class="bg-surface-container-low">
+            <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin">
+                <nav class="flex items-center gap-space-xs overflow-x-auto py-2"
+                    data-active-classes="bg-primary-container text-on-primary font-label-lg rounded-lg"><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="home" href="#">Home / मुख्य पृष्ठ</a><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="eligibility-finder" href="#">Eligibility Finder / पात्रता खोज</a><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="document-assistant" href="#">Document Assistant / दस्तावेज़</a><a aria-current="page"
+                        class="shrink-0 px-space-md py-2.5 transition-colors bg-primary-container text-on-primary font-label-lg rounded-lg"
+                        data-path="my-entitlements" href="#">My Entitlements / अधिकार (5)</a><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="benefit-guides-letters" href="#">Benefit Guides &amp; Letters / पत्र प्रारूप</a><a
+                        class="shrink-0 px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
+                        data-path="my-checklist" href="#">My Checklist / चेकलिस्ट</a></nav>
+            </div>
+        </div>
+    </header>
+    <main class="w-full pt-44 bg-surface min-h-[calc(100vh-200px)]">
+        <div class="flex flex-col w-full">
+            <div class="w-full max-w-7xl mx-auto px-margin-mobile lg:px-margin pb-space-xl">
+                <!-- Top Grounding Anchor Banner -->
+                <div class="w-full bg-primary rounded-xl overflow-hidden shadow-md mb-space-lg">
+                    <div class="w-full h-1.5 flex">
+                        <div class="h-full flex-1 bg-secondary-container"></div>
+                        <div class="h-full flex-1 bg-surface-container-lowest"></div>
+                        <div class="h-full flex-1 bg-tertiary-fixed-dim"></div>
+                    </div>
+                    <div class="p-space-md lg:p-space-lg flex flex-col gap-space-sm text-on-primary">
+                        <div class="flex flex-wrap items-center justify-between gap-space-sm">
+                            <div
+                                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary-container text-secondary-fixed font-label-md text-label-md">
+                                <span class="material-symbols-outlined text-[20px]"
+                                    style="font-variation-settings: 'FILL' 1;">military_tech</span>
+                                <span>Verified Entitlements: Family of Late Rifleman Ramesh Kumar</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span
+                                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-secondary-container/20 text-secondary-fixed text-caption font-caption">
+                                    <span class="material-symbols-outlined text-[16px]">verified</span>
+                                    13 JAK RIFLES • Regt. No. 2689140X
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md mt-2">
+                            <div class="max-w-3xl">
+                                <h1 class="font-headline-xl text-headline-xl tracking-tight text-on-primary mb-2">
+                                    5 Benefits Found for You
+                                    <span
+                                        class="block font-headline-md text-headline-md text-secondary-fixed mt-1 font-normal">
+                                        (5 अधिकार आपके लिए चिन्हित किए गए हैं)
+                                    </span>
+                                </h1>
+                                <p
+                                    class="font-body-xl text-body-xl text-surface-container-highest font-normal leading-relaxed">
+                                    Based on official <strong>Battle Casualty status (Operation Vijay)</strong> and your
+                                    certified residency in <strong>Himachal Pradesh</strong>, your family is fully
+                                    eligible for the following central and state entitlements.
+                                </p>
+                            </div>
+                            <button
+                                class="shrink-0 h-14 px-space-md rounded-xl bg-secondary-container text-on-secondary-container font-label-lg text-label-lg shadow-md flex items-center justify-center gap-3 hover:bg-secondary-fixed transition-all active:scale-[0.98]"
+                                id="voiceNarratorBtn" type="button">
+                                <span class="material-symbols-outlined text-[28px]" id="speakerIcon">volume_up</span>
+                                <span id="speakerLabel">🔊 Listen to Benefits Summary</span>
+                            </button>
+                        </div>
+                        <div
+                            class="pt-space-xs mt-space-xs border-t-0 flex flex-wrap items-center gap-space-md text-caption font-caption text-surface-container-highest">
+                            <span class="flex items-center gap-1">
+                                <span
+                                    class="material-symbols-outlined text-secondary-fixed text-[18px]">verified_user</span>
+                                Record Office Authenticated: PCDA Prayagraj &amp; DESW
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <span
+                                    class="material-symbols-outlined text-secondary-fixed text-[18px]">location_on</span>
+                                District: Hamirpur, Himachal Pradesh
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <span
+                                    class="material-symbols-outlined text-secondary-fixed text-[18px]">calendar_month</span>
+                                Verified Cycle: Fiscal Year 2024-25
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Main Workspace Layout: 8 cols transactional list, 4 cols administrative guardian ledger -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+                    <!-- Primary Benefits Stream (Col 8) -->
+                    <div class="lg:col-span-8 flex flex-col gap-space-md">
+                        <!-- Categorical Switcher / Filter Pills -->
+                        <div
+                            class="bg-surface-container-low p-2 rounded-xl flex flex-wrap items-center gap-2 shadow-sm">
+                            <button
+                                class="filter-tab px-space-md py-3 rounded-lg font-label-lg text-label-lg bg-primary text-on-primary shadow-sm transition-colors"
+                                data-filter="all" type="button">
+                                All Benefits (5)
+                            </button>
+                            <button
+                                class="filter-tab px-space-md py-3 rounded-lg font-label-lg text-label-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors"
+                                data-filter="pension" type="button">
+                                Central Pensions (2)
+                            </button>
+                            <button
+                                class="filter-tab px-space-md py-3 rounded-lg font-label-lg text-label-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors"
+                                data-filter="medical" type="button">
+                                Medical &amp; Welfare (2)
+                            </button>
+                            <button
+                                class="filter-tab px-space-md py-3 rounded-lg font-label-lg text-label-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors"
+                                data-filter="state" type="button">
+                                State Relief (1)
+                            </button>
+                        </div>
+                        <!-- Notification Banner / Document Readiness Overview -->
+                        <div
+                            class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary">
+                                    <span class="material-symbols-outlined text-[28px]">fact_check</span>
+                                </div>
+                                <div>
+                                    <p class="font-label-lg text-label-lg text-primary">4 of 5 Entitlements Ready for
+                                        Claim</p>
+                                    <p class="font-body-md text-body-md text-on-surface-variant">1 entitlement requires
+                                        one additional document from your college.</p>
+                                </div>
+                            </div>
+                            <div class="w-full sm:w-40 bg-surface-container-highest h-3 rounded-full overflow-hidden">
+                                <div class="bg-primary h-full rounded-full" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                        <!-- Entitlement Cards Container -->
+                        <div class="flex flex-col gap-space-md" id="entitlementCards">
+                            <!-- Card 1: Liberalized Family Pension (LFP) -->
+                            <article
+                                class="entitlement-item bg-surface-container-lowest rounded-xl p-space-md lg:p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-sm"
+                                data-category="pension">
+                                <div class="flex flex-wrap items-start justify-between gap-space-xs">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-3 py-1 rounded bg-surface-container text-primary font-caption text-caption uppercase tracking-wider">PCDA
+                                                Central Entitlement</span>
+                                            <span
+                                                class="px-3 py-1 rounded bg-[#ECFDF5] text-[#065F46] font-label-md text-caption flex items-center gap-1.5">
+                                                <span class="w-2 h-2 rounded-full bg-[#138808]"></span>
+                                                Ready to Apply (स्वीकृति योग्य)
+                                            </span>
+                                        </div>
+                                        <h2 class="font-headline-lg text-headline-lg text-primary mt-1">Liberalized
+                                            Family Pension (LFP)</h2>
+                                    </div>
+                                    <button
+                                        class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-caption flex items-center gap-1.5 hover:bg-secondary-container hover:text-on-secondary-container transition-colors"
+                                        onclick="playSingleAudio('lfp')" title="Listen to this benefit" type="button">
+                                        <span class="material-symbols-outlined text-[20px]">volume_up</span>
+                                        <span>सुनें</span>
+                                    </button>
+                                </div>
+                                <p class="font-body-xl text-body-xl text-on-surface leading-relaxed">
+                                    Equal to <strong>100% of the last reckonable emoluments</strong> of the soldier for
+                                    life, payable without any family income limitations or cessation upon remarriage
+                                    (subject to standard MoD guidelines).
+                                </p>
+                                <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-space-xs">
+                                    <span
+                                        class="font-label-md text-caption text-on-surface-variant uppercase tracking-wider">Required
+                                        Verification Documents Checked:</span>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-space-xs">
+                                        <div
+                                            class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded">
+                                            <span
+                                                class="material-symbols-outlined text-[#138808] text-[20px]">check_circle</span>
+                                            <span class="font-body-md text-body-md text-on-surface">Casualty Part II
+                                                Order</span>
+                                        </div>
+                                        <div
+                                            class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded">
+                                            <span
+                                                class="material-symbols-outlined text-[#138808] text-[20px]">check_circle</span>
+                                            <span class="font-body-md text-body-md text-on-surface">Bank Mandate (SBI
+                                                DSP)</span>
+                                        </div>
+                                        <div
+                                            class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded">
+                                            <span
+                                                class="material-symbols-outlined text-[#138808] text-[20px]">check_circle</span>
+                                            <span class="font-body-md text-body-md text-on-surface">Joint PPO
+                                                Photographs</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-2">
+                                    <div class="flex flex-col">
+                                        <span class="font-caption text-caption text-on-surface-variant">Sanctioning /
+                                            Granting Office</span>
+                                        <span class="font-label-md text-label-md text-primary">PCDA (Pensions) Prayagraj
+                                            &amp; 13 JAK Rifles Records</span>
+                                    </div>
+                                    <button
+                                        class="h-14 px-space-md rounded-lg bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary transition-all"
+                                        type="button">
+                                        <span>Open Step-by-Step Guide &amp; Letter</span>
+                                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </article>
+                            <!-- Card 2: ECHS Smart Card -->
+                            <article
+                                class="entitlement-item bg-surface-container-lowest rounded-xl p-space-md lg:p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-sm"
+                                data-category="medical">
+                                <div class="flex flex-wrap items-start justify-between gap-space-xs">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-3 py-1 rounded bg-surface-container text-primary font-caption text-caption uppercase tracking-wider">Lifelong
+                                                Health Coverage</span>
+                                            <span
+                                                class="px-3 py-1 rounded bg-[#ECFDF5] text-[#065F46] font-label-md text-caption flex items-center gap-1.5">
+                                                <span class="w-2 h-2 rounded-full bg-[#138808]"></span>
+                                                Ready to Apply (पूर्णतः तैयार)
+                                            </span>
+                                        </div>
+                                        <h2 class="font-headline-lg text-headline-lg text-primary mt-1">ECHS Smart Card
+                                            (Cashless Healthcare)</h2>
+                                    </div>
+                                    <button
+                                        class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-caption flex items-center gap-1.5 hover:bg-secondary-container hover:text-on-secondary-container transition-colors"
+                                        onclick="playSingleAudio('echs')" title="Listen to this benefit" type="button">
+                                        <span class="material-symbols-outlined text-[20px]">volume_up</span>
+                                        <span>सुनें</span>
+                                    </button>
+                                </div>
+                                <p class="font-body-xl text-body-xl text-on-surface leading-relaxed">
+                                    <strong>Free lifetime cashless OPD and hospitalization</strong> at all Military
+                                    Hospitals, Base Hospitals, and empanelled super-specialty private hospitals across
+                                    India for you and dependent children.
+                                </p>
+                                <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-space-xs">
+                                    <span
+                                        class="font-label-md text-caption text-on-surface-variant uppercase tracking-wider">Required
+                                        Verification Documents Checked:</span>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-space-xs">
+                                        <div
+                                            class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded">
+                                            <span
+                                                class="material-symbols-outlined text-[#138808] text-[20px]">check_circle</span>
+                                            <span class="font-body-md text-body-md text-on-surface">Service Record
+                                                Book</span>
+                                        </div>
+                                        <div
+                                            class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded">
+                                            <span
+                                                class="material-symbols-outlined text-[#138808] text-[20px]">check_circle</span>
+                                            <span class="font-body-md text-body-md text-on-surface">Aadhaar of
+                                                Dependant</span>
+                                        </div>
+                                        <div
+                                            class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded">
+                                            <span
+                                                class="material-symbols-outlined text-[#138808] text-[20px]">check_circle</span>
+                                            <span class="font-body-md text-body-md text-on-surface">2 Passport Photos
+                                                (Ready)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-2">
+                                    <div class="flex flex-col">
+                                        <span class="font-caption text-caption text-on-surface-variant">Processing
+                                            Station</span>
+                                        <span class="font-label-md text-label-md text-primary">Station HQ Hamirpur /
+                                            ECHS Regional Polyclinic</span>
+                                    </div>
+                                    <button
+                                        class="h-14 px-space-md rounded-lg bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary transition-all"
+                                        type="button">
+                                        <span>Open Guide &amp; Forms</span>
+                                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </article>
+                            <!-- Card 3: PMSS / Children Education Scheme (Missing Document) -->
+                            <article
+                                class="entitlement-item bg-surface-container-lowest rounded-xl p-space-md lg:p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-sm"
+                                data-category="pension">
+                                <div class="flex flex-wrap items-start justify-between gap-space-xs">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-3 py-1 rounded bg-surface-container text-primary font-caption text-caption uppercase tracking-wider">Education
+                                                &amp; Scholarship Grant</span>
+                                            <span
+                                                class="px-3 py-1 rounded bg-[#FFFBEB] text-[#92400E] font-label-md text-caption flex items-center gap-1.5">
+                                                <span
+                                                    class="material-symbols-outlined text-[#92400E] text-[16px]">pending_actions</span>
+                                                1 Document Needed (दस्तावेज़ आवश्यक)
+                                            </span>
+                                        </div>
+                                        <h2 class="font-headline-lg text-headline-lg text-primary mt-1">Children's
+                                            Education Scheme &amp; Prime Minister's Scholarship (PMSS)</h2>
+                                    </div>
+                                    <button
+                                        class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-caption flex items-center gap-1.5 hover:bg-secondary-container hover:text-on-secondary-container transition-colors"
+                                        onclick="playSingleAudio('pmss')" title="Listen to this benefit" type="button">
+                                        <span class="material-symbols-outlined text-[20px]">volume_up</span>
+                                        <span>सुनें</span>
+                                    </button>
+                                </div>
+                                <p class="font-body-xl text-body-xl text-on-surface leading-relaxed">
+                                    Provides up to <strong>₹36,000 per year per girl child / ₹30,000 for boys</strong>
+                                    for professional degree programs (Engineering, MBBS, MBA), accompanied by complete
+                                    school education fee reimbursement via KSB.
+                                </p>
+                                <div class="p-space-sm rounded-lg bg-[#FFFBEB] flex flex-col gap-space-xs">
+                                    <span
+                                        class="font-label-md text-caption text-[#92400E] uppercase tracking-wider">Verification
+                                        Document Status:</span>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-space-xs">
+                                        <div
+                                            class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded">
+                                            <span
+                                                class="material-symbols-outlined text-[#138808] text-[20px]">check_circle</span>
+                                            <span class="font-body-md text-body-md text-on-surface">Death in Harness
+                                                Certificate</span>
+                                        </div>
+                                        <div
+                                            class="flex items-center gap-2 bg-[#FEF3C7] px-3 py-2 rounded text-[#92400E]">
+                                            <span
+                                                class="material-symbols-outlined text-[#D97706] text-[20px]">error</span>
+                                            <span class="font-label-md text-body-md">College Admission Bonafide
+                                                Needed</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-2">
+                                    <div class="flex flex-col">
+                                        <span class="font-caption text-caption text-on-surface-variant">Sanctioning
+                                            Authority</span>
+                                        <span class="font-label-md text-label-md text-primary">Kendriya Sainik Board
+                                            (KSB), New Delhi</span>
+                                    </div>
+                                    <button
+                                        class="h-14 px-space-md rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg flex items-center justify-center gap-2 hover:bg-secondary-container hover:text-on-secondary-container transition-all"
+                                        type="button">
+                                        <span>Resolve Missing Doc &amp; Apply</span>
+                                        <span class="material-symbols-outlined text-[20px]">upload_file</span>
+                                    </button>
+                                </div>
+                            </article>
+                            <!-- Card 4: HP State War Widow Ex-Gratia & Land Grant -->
+                            <article
+                                class="entitlement-item bg-surface-container-lowest rounded-xl p-space-md lg:p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-sm"
+                                data-category="state">
+                                <div class="flex flex-wrap items-start justify-between gap-space-xs">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-3 py-1 rounded bg-surface-container text-primary font-caption text-caption uppercase tracking-wider">Himachal
+                                                Pradesh State Government</span>
+                                            <span
+                                                class="px-3 py-1 rounded bg-[#ECFDF5] text-[#065F46] font-label-md text-caption flex items-center gap-1.5">
+                                                <span class="w-2 h-2 rounded-full bg-[#138808]"></span>
+                                                Ready to Apply (स्वीकृति योग्य)
+                                            </span>
+                                        </div>
+                                        <h2 class="font-headline-lg text-headline-lg text-primary mt-1">HP State War
+                                            Widow Ex-Gratia &amp; Land Grant</h2>
+                                    </div>
+                                    <button
+                                        class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-caption flex items-center gap-1.5 hover:bg-secondary-container hover:text-on-secondary-container transition-colors"
+                                        onclick="playSingleAudio('hp')" title="Listen to this benefit" type="button">
+                                        <span class="material-symbols-outlined text-[20px]">volume_up</span>
+                                        <span>सुनें</span>
+                                    </button>
+                                </div>
+                                <p class="font-body-xl text-body-xl text-on-surface leading-relaxed">
+                                    Lump-sum state government honorarium grant of <strong>₹5,00,000</strong> for OP
+                                    Vijay martyrs, alongside preferential agricultural plot allocation or cash grant in
+                                    lieu through the Revenue Department.
+                                </p>
+                                <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-space-xs">
+                                    <span
+                                        class="font-label-md text-caption text-on-surface-variant uppercase tracking-wider">Required
+                                        Verification Documents Checked:</span>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-space-xs">
+                                        <div
+                                            class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded">
+                                            <span
+                                                class="material-symbols-outlined text-[#138808] text-[20px]">check_circle</span>
+                                            <span class="font-body-md text-body-md text-on-surface">Himachal Bonafide
+                                                Himachali Certificate</span>
+                                        </div>
+                                        <div
+                                            class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded">
+                                            <span
+                                                class="material-symbols-outlined text-[#138808] text-[20px]">check_circle</span>
+                                            <span class="font-body-md text-body-md text-on-surface">Battle Casualty
+                                                Certificate (AHQ)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-2">
+                                    <div class="flex flex-col">
+                                        <span class="font-caption text-caption text-on-surface-variant">Sanctioning
+                                            Office</span>
+                                        <span class="font-label-md text-label-md text-primary">Zila Sainik Welfare
+                                            Office, Hamirpur (HP)</span>
+                                    </div>
+                                    <button
+                                        class="h-14 px-space-md rounded-lg bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary transition-all"
+                                        type="button">
+                                        <span>Open State Scheme Guide</span>
+                                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </article>
+                            <!-- Card 5: War Widows Association & Rail Concession -->
+                            <article
+                                class="entitlement-item bg-surface-container-lowest rounded-xl p-space-md lg:p-space-lg shadow-sm hover:shadow-md transition-shadow flex flex-col gap-space-sm"
+                                data-category="medical">
+                                <div class="flex flex-wrap items-start justify-between gap-space-xs">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2">
+                                            <span
+                                                class="px-3 py-1 rounded bg-surface-container text-primary font-caption text-caption uppercase tracking-wider">Mobility
+                                                &amp; Community Relief</span>
+                                            <span
+                                                class="px-3 py-1 rounded bg-[#ECFDF5] text-[#065F46] font-label-md text-caption flex items-center gap-1.5">
+                                                <span class="w-2 h-2 rounded-full bg-[#138808]"></span>
+                                                Ready to Apply (स्वीकृति योग्य)
+                                            </span>
+                                        </div>
+                                        <h2 class="font-headline-lg text-headline-lg text-primary mt-1">Railway Travel
+                                            Concession &amp; War Widows Welfare Card</h2>
+                                    </div>
+                                    <button
+                                        class="h-10 px-3 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-md text-caption flex items-center gap-1.5 hover:bg-secondary-container hover:text-on-secondary-container transition-colors"
+                                        onclick="playSingleAudio('travel')" title="Listen to this benefit"
+                                        type="button">
+                                        <span class="material-symbols-outlined text-[20px]">volume_up</span>
+                                        <span>सुनें</span>
+                                    </button>
+                                </div>
+                                <p class="font-body-xl text-body-xl text-on-surface leading-relaxed">
+                                    Permanent <strong>75% fare concession in 1st &amp; 2nd Class</strong> on Indian
+                                    Railways across all nationwide routes, with companion eligibility and priority
+                                    airline quota with Air India.
+                                </p>
+                                <div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-space-xs">
+                                    <span
+                                        class="font-label-md text-caption text-on-surface-variant uppercase tracking-wider">Required
+                                        Verification Documents Checked:</span>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-space-xs">
+                                        <div
+                                            class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded">
+                                            <span
+                                                class="material-symbols-outlined text-[#138808] text-[20px]">check_circle</span>
+                                            <span class="font-body-md text-body-md text-on-surface">Zila Sainik Board
+                                                Identity Card</span>
+                                        </div>
+                                        <div
+                                            class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded">
+                                            <span
+                                                class="material-symbols-outlined text-[#138808] text-[20px]">check_circle</span>
+                                            <span class="font-body-md text-body-md text-on-surface">Attested MoD
+                                                Casualty Gazette</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-2">
+                                    <div class="flex flex-col">
+                                        <span class="font-caption text-caption text-on-surface-variant">Issuing
+                                            Counter</span>
+                                        <span class="font-label-md text-label-md text-primary">Divisional Railway DRM
+                                            Office / Sainik Welfare Window</span>
+                                    </div>
+                                    <button
+                                        class="h-14 px-space-md rounded-lg bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary transition-all"
+                                        type="button">
+                                        <span>Open Guide &amp; Concession Letter</span>
+                                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <!-- Authoritative Administrative Directory & Village Sahayak Drawer (Col 4) -->
+                    <aside class="lg:col-span-4 flex flex-col gap-space-md">
+                        <!-- Field Officer & Sahayak Card -->
+                        <div
+                            class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-12 h-12 rounded-full overflow-hidden bg-primary-container flex items-center justify-center text-on-primary">
+                                    <img class="w-full h-full object-cover"
+                                        data-alt="Warm portrait of an Indian Army veteran welfare nodal officer in smart uniform jacket offering courteous guidance in a rural facilitation center"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU6DXxaedwFJqJguZ4UegfFV7pS6gJLK5izILsL1vP_tRgfYYE1b4tRtQs9F1vWCfarQr7EMBhl4-FtSph7WaCk6MEqRJvRuOxaruJRtD80CBRXU9BhZ3iGZieQrLtuuLShP8xydiejTz0H8MDWcbZnXq87ysWmceExFCsOaroESADXhk34hd9pi_wq33LHxxTbfpNOYETLXIIeowtexeve0LQjHh0uVUONt8U7xPc0J2pLAsESrBj">
+                                </div>
+                                <div>
+                                    <p class="font-caption text-caption text-on-surface-variant">Your Assigned Village
+                                        Sahayak</p>
+                                    <h3 class="font-headline-sm text-headline-sm text-primary">Subedar Major K. S.
+                                        Thakur (Retd.)</h3>
+                                </div>
+                            </div>
+                            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                                Need doorstep physical documentation help or signature collection? Your Hamirpur Zila
+                                Sainik Sahayak is ready to assist at your home.
+                            </p>
+                            <a class="h-14 px-space-sm rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 hover:bg-primary transition-colors"
+                                href="tel:01972222340">
+                                <span class="material-symbols-outlined text-[22px]">phone_in_talk</span>
+                                <span>Call Sahayak (01972-222340)</span>
+                            </a>
+                            <button
+                                class="h-12 px-space-sm rounded-lg bg-surface-container text-primary font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container-highest transition-colors"
+                                type="button">
+                                <span class="material-symbols-outlined text-[20px]">home_pin</span>
+                                <span>Request Home Visit for Documents</span>
+                            </button>
+                        </div>
+                        <!-- Zila Sainik Board Local Office Info Card -->
+                        <div
+                            class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+                            <div class="flex items-center gap-2 text-primary">
+                                <span class="material-symbols-outlined text-[24px]">account_balance</span>
+                                <h3 class="font-headline-sm text-headline-sm text-primary">Your Nodal Welfare Center
+                                </h3>
+                            </div>
+                            <div class="rounded-lg overflow-hidden h-36 bg-surface-container relative">
+                                <div class="w-full h-full bg-cover bg-center" data-location="Hamirpur, Himachal Pradesh"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuClQzExTZA_g8CodeBkZJXDj0QI26_dBVl04cUmpqEo9G3Qx_SQ4PdDR2edtganf-o_xeez7p29ECsmUEz1aBrUCvdhCt_SVjcTrJmu18JZBp9bmfB1HLVgLYhILNjbyuSlPgqidow3DxnukZAKPQPH6YKXhumPaZEZdgGBqIZsZb0QnknSHZ9Vr0nTVCI6Fyked0ce4rSd15nzzcIyfY0jr4oGwUk4IvKCdbxsqwFRB0y2ueSKtSET')">
+                                </div>
+                                <div
+                                    class="absolute bottom-2 left-2 bg-primary/90 text-on-primary text-caption font-caption px-2 py-1 rounded">
+                                    Hamirpur Sainik Welfare HQ
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-1 text-on-surface">
+                                <p class="font-label-md text-label-md">Zila Sainik Welfare Office (ZSWO)</p>
+                                <p class="font-body-md text-body-md text-on-surface-variant">District Administrative
+                                    Complex, Anu, Hamirpur (H.P.) - 177001</p>
+                                <p class="font-caption text-caption text-on-surface-variant mt-1">Open: Mon–Fri, 09:30
+                                    AM – 05:00 PM</p>
+                            </div>
+                        </div>
+                        <!-- Official Dispatch Guarantee / Sovereign Backing -->
+                        <div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-xs">
+                            <div class="flex items-center gap-2 text-primary">
+                                <span
+                                    class="material-symbols-outlined text-[22px] text-secondary-container">shield</span>
+                                <span class="font-label-lg text-label-lg text-primary">Official MoD Assurance</span>
+                            </div>
+                            <p class="font-body-md text-caption text-on-surface-variant leading-relaxed">
+                                All entitlements cataloged here are backed by Ministry of Defence Office Memorandums. No
+                                commission, middleman, or administrative fee is ever required.
+                            </p>
+                        </div>
+                        <!-- Quick Printable Checklist Download -->
+                        <div
+                            class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                                    <span class="material-symbols-outlined text-[24px]">print</span>
+                                </div>
+                                <div>
+                                    <p class="font-label-lg text-label-lg text-primary">Download All 5 Grant Forms</p>
+                                    <p class="font-caption text-caption text-on-surface-variant">Pre-filled bilingual
+                                        PDF bundle</p>
+                                </div>
+                            </div>
+                            <button
+                                class="h-12 w-full rounded-lg bg-surface-container text-primary font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container-highest transition-colors"
+                                type="button">
+                                <span class="material-symbols-outlined text-[20px]">download</span>
+                                <span>Download All Application Kits (PDF)</span>
+                            </button>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+            <!-- Persistent Floating Audio Assistance Capsule -->
+            <div class="fixed bottom-6 right-6 z-40 max-w-sm">
+                <div class="bg-primary text-on-primary rounded-full shadow-xl px-5 py-3.5 flex items-center gap-3 cursor-pointer hover:bg-primary-container transition-all"
+                    id="floatingVoicePill">
+                    <div
+                        class="w-9 h-9 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-[22px]">volume_up</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-label-md text-label-md text-secondary-fixed leading-tight">सहज ध्वनि
+                            सहायता</span>
+                        <span class="font-caption text-caption text-surface-container-highest">Read Aloud / आवाज़ में
+                            सुनें</span>
+                    </div>
+                    <button
+                        class="ml-2 w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary hover:bg-surface-variant hover:text-on-surface transition-colors"
+                        title="Audio Settings" type="button">
+                        <span class="material-symbols-outlined text-[18px]">tune</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script>
+            // Filter tabs functionality
+            const tabs = document.querySelectorAll('.filter-tab');
+            const cards = document.querySelectorAll('.entitlement-item');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => {
+                        t.classList.remove('bg-primary', 'text-on-primary');
+                        t.classList.add('bg-surface-container-lowest', 'text-on-surface-variant');
+                    });
+                    tab.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant');
+                    tab.classList.add('bg-primary', 'text-on-primary');
+
+                    const filter = tab.getAttribute('data-filter');
+                    cards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Audio Speech synthesis narration mock
+            let isSpeaking = false;
+            const narratorBtn = document.getElementById('voiceNarratorBtn');
+            const speakerLabel = document.getElementById('speakerLabel');
+            const speakerIcon = document.getElementById('speakerIcon');
+
+            function toggleSpeech(text) {
+                if ('speechSynthesis' in window) {
+                    if (isSpeaking) {
+                        window.speechSynthesis.cancel();
+                        isSpeaking = false;
+                        speakerLabel.textContent = '🔊 Listen to Benefits Summary';
+                        speakerIcon.textContent = 'volume_up';
+                    } else {
+                        const utterance = new SpeechSynthesisUtterance(text);
+                        utterance.rate = 0.85; // Slow, calm pacing for accessibility
+                        utterance.onend = () => {
+                            isSpeaking = false;
+                            speakerLabel.textContent = '🔊 Listen to Benefits Summary';
+                            speakerIcon.textContent = 'volume_up';
+                        };
+                        window.speechSynthesis.speak(utterance);
+                        isSpeaking = true;
+                        speakerLabel.textContent = '⏹ Stop Audio Narration';
+                        speakerIcon.textContent = 'stop_circle';
+                    }
+                }
+            }
+
+            narratorBtn.addEventListener('click', () => {
+                const summaryText = "Five entitlements have been identified for the family of Late Rifleman Ramesh Kumar, 13 Jammu and Kashmir Rifles. First: Liberalized Family Pension with 100 percent emoluments. Second: ECHS Cashless Smart Card for lifetime medical care. Third: Prime Minister Scholarship scheme for children's higher education. Fourth: Himachal Pradesh state ex-gratia grant of five lakh rupees. Fifth: Railway 75 percent travel concession. Four benefits are ready to claim now.";
+                toggleSpeech(summaryText);
+            });
+
+            document.getElementById('floatingVoicePill').addEventListener('click', () => {
+                narratorBtn.click();
+            });
+
+            function playSingleAudio(type) {
+                const texts = {
+                    lfp: "Liberalized Family Pension. You receive 100% of last pay for life. All primary documents are verified.",
+                    echs: "ECHS Smart Card. Cashless hospital coverage across India. Ready to submit.",
+                    pmss: "Children's Education Scheme. Please arrange the college bonafide admission letter to complete this claim.",
+                    hp: "Himachal Pradesh War Widow Ex-Gratia Grant of five lakh rupees and agricultural plot allocation.",
+                    travel: "Railway travel concession pass offering 75% off on first and second class railway tickets nationwide."
+                };
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const u = new SpeechSynthesisUtterance(texts[type] || 'Entitlement details');
+                    u.rate = 0.85;
+                    window.speechSynthesis.speak(u);
+                }
+            }
+        </script>
+    </main>
+    <footer class="w-full bg-surface-container-low text-on-surface mt-space-xl">
+        <div class="w-full h-[3px] flex">
+            <div class="h-full flex-1 bg-[#FF9933]"></div>
+            <div class="h-full flex-1 bg-[#FFFFFF]"></div>
+            <div class="h-full flex-1 bg-[#138808]"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin py-space-xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg mb-space-lg">
+                <div class="flex flex-col gap-space-xs">
+                    <div class="flex items-center gap-space-xs">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-secondary-container">
+                            <span class="material-symbols-outlined text-[20px]">local_fire_department</span></div><span
+                            class="font-headline-sm text-headline-sm text-primary">वीर नारी साथी</span>
+                    </div>
+                    <p class="font-body-md text-body-md text-on-surface-variant">A compassionate, accessible welfare
+                        navigator dedicated to the widows, children, and dependent parents of Indian Armed Forces
+                        martyrs.</p>
+                </div>
+                <div class="flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg text-primary">Emergency
+                        &amp; Institutional Helplines</span>
+                    <ul class="flex flex-col gap-1 font-body-md text-body-md text-on-surface-variant">
+                        <li>KSB New Delhi: 1800-11-1971 / 011-26715250</li>
+                        <li>PCDA (P) Prayagraj Sparsh Helpline: 1800-180-5325</li>
+                        <li>Army Welfare Education Society (AWES): 011-26151564</li>
+                        <li>Naval Regimental System (NRS): 1800-22-0238</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col gap-space-xs"><span
+                        class="font-label-lg text-label-lg text-primary">Assistance Modes</span>
+                    <p class="font-body-md text-body-md text-on-surface-variant">Need a Village Sahayak visit or home
+                        documentation help? Call your Zila Sainik Board or request a nodal officer check-in through your
+                        nearest Station HQ.</p>
+                    <div class="flex items-center gap-2"><span
+                            class="material-symbols-outlined text-secondary-container">record_voice_over</span><span
+                            class="font-label-md text-caption text-secondary">Screen reader &amp; Large-type
+                            compliant</span></div>
+                </div>
+            </div>
+            <div
+                class="p-space-md rounded-xl bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] mb-space-lg">
+                <p class="font-body-md text-caption text-on-surface-variant leading-relaxed"><strong
+                        class="text-on-surface font-label-md">Institutional Disclaimer:</strong> Veer Nari Saathi is an
+                    independent, non-commercial public welfare guidance companion. All pensions, grants, gallantry
+                    honorariums, and concessions are sanctioned and disbursed exclusively by the Principal Controller of
+                    Defence Accounts (PCDA - Prayagraj), Department of Ex-Servicemen Welfare (DESW), Ministry of
+                    Defence, and respective Service Record Offices (Army / Navy / Air Force).</p>
+            </div>
+            <div
+                class="flex flex-wrap items-center justify-between gap-space-sm text-caption font-caption text-on-surface-variant">
+                <p>© 2024 Veer Nari Saathi Welfare Collective. Dedicated with deepest reverence to the families of our
+                    fallen heroes.</p>
+                <div class="flex items-center gap-space-md"><a class="hover:text-on-surface transition-colors"
+                        href="#">Accessibility Statement</a><a class="hover:text-on-surface transition-colors"
+                        href="#">Zila Sainik Directory</a><a class="hover:text-on-surface transition-colors"
+                        href="#">Privacy Policy</a></div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
