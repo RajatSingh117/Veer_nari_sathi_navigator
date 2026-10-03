@@ -20,7 +20,7 @@ export default function ResultsPage() {
     setLoading(true);
     setError(null);
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 45000);
+    const timeoutId = setTimeout(() => controller.abort(), 90000);
 
     try {
       const res = await fetch('/api/match', {
@@ -57,7 +57,7 @@ export default function ResultsPage() {
       clearTimeout(timeoutId);
       console.error('Failed to load matches:', err);
       if (err.name === 'AbortError') {
-        setError('Evaluation timed out after 45 seconds. The server took too long to evaluate benefits. Please click Retry.');
+        setError('Evaluation timed out after 90 seconds. The server took too long to evaluate benefits. Please click Retry.');
       } else {
         setError(err.message || 'Failed to match entitlements. Please click Retry.');
       }

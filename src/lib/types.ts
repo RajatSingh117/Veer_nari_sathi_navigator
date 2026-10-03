@@ -9,6 +9,7 @@ export const BenefitMatchSchema = z.object({
   office: z.string(),
   steps: z.array(z.string()).default([]),
   source_url: z.string(),
+  summary: z.string().optional(),
 });
 
 export type BenefitMatch = z.infer<typeof BenefitMatchSchema>;
@@ -26,6 +27,8 @@ export const MatchMetaSchema = z.object({
   path: z.enum(['gemini', 'mock_fallback']),
   model: z.string(),
   duration_ms: z.number().optional(),
+  gemini_duration_ms: z.number().optional(),
+  retry_happened: z.boolean().optional(),
 });
 
 export type MatchMeta = z.infer<typeof MatchMetaSchema>;

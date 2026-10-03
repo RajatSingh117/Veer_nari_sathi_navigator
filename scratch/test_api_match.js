@@ -21,13 +21,15 @@ async function testMatch() {
   };
 
   console.log('Sending dummy profile to POST /api/match...');
+  const t0 = Date.now();
   const res = await fetch('http://localhost:3000/api/match', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(dummyProfile),
   });
 
-  console.log('Status:', res.status);
+  const elapsed = Date.now() - t0;
+  console.log(`Status: ${res.status} (Total roundtrip: ${elapsed}ms)`);
   const data = await res.json();
   console.log('=== MATCH RESPONSE JSON ===');
   console.log(JSON.stringify(data, null, 2));

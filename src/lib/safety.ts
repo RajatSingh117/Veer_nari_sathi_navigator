@@ -33,6 +33,7 @@ export function safetyPostProcessor(
   const sanitizedBenefits: BenefitMatch[] = benefits.map((b) => ({
     id: sanitizeText(b.id),
     title: sanitizeText(b.title),
+    summary: b.summary ? sanitizeText(b.summary) : undefined,
     why_it_may_apply: sanitizeText(b.why_it_may_apply),
     status: b.status,
     missing_documents: (b.missing_documents || []).map(sanitizeText),

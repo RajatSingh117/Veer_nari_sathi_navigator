@@ -2,13 +2,23 @@ import { NextResponse } from 'next/server';
 import { GoogleGenAI, Type } from '@google/genai';
 import { z } from 'zod';
 import entitlementsData from '@/data/entitlements.json';
-import { BenefitMatch, BenefitMatchSchema, MatchRequestSchema } from '@/lib/types';
+import { BenefitMatch, MatchRequestSchema } from '@/lib/types';
 import { safetyPostProcessor } from '@/lib/safety';
 import { resolveConfirmedDocTypes, computeBenefitDocStatus } from '@/lib/docMatching';
 
 export const maxDuration = 60;
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+function isRetryableError(err: any): boolean {
+  const status = err?.status || err?.statusCode || err?.code;
+  const msg = String(err?.message || '');
+  if (status === 429 || status === 503) return true;
+  if (msg.includes('429') || msg.includes('503')) return true;
+  if (msg.includes('RESOURCE_EXHAUSTED') || msg.includes('UNAVAILABLE')) return true;
+  if (msg.toLowerCase().includes('high demand') || msg.toLowerCase().includes('quota')) return true;
+  return false;
+}
 
 function parseGeminiError(err: any): { status: number; message: string } {
   const msg = err?.message || String(err || '');
@@ -18,6 +28,12 @@ function parseGeminiError(err: any): { status: number; message: string } {
     return {
       status: 429,
       message: 'Gemini API quota exceeded. Please wait a moment and retry.',
+    };
+  }
+  if (status === 503 || msg.includes('503') || msg.includes('UNAVAILABLE') || msg.toLowerCase().includes('high demand')) {
+    return {
+      status: 503,
+      message: 'Gemini model is currently experiencing high demand. Please retry.',
     };
   }
   if (status === 400 || status === 401 || status === 403 || msg.includes('API_KEY_INVALID') || msg.includes('API key not valid')) {
@@ -44,8 +60,13 @@ function parseGeminiError(err: any): { status: number; message: string } {
   };
 }
 
-const BenefitsOutputSchema = z.object({
-  benefits: z.array(BenefitMatchSchema)
+const GeminiRawOutputSchema = z.object({
+  benefits: z.array(
+    z.object({
+      id: z.string(),
+      why_it_may_apply: z.string(),
+    })
+  ),
 });
 
 export async function POST(req: Request) {
@@ -91,11 +112,14 @@ export async function POST(req: Request) {
       const matchedBenefits = filtered.map((item: any) => {
         let rawTitle = item.title[langKey] || item.title.en;
         if (rawTitle.includes('TODO_VERIFY')) rawTitle = item.title.en;
+        let rawSummary = item.summary[langKey] || item.summary.en;
+        if (rawSummary.includes('TODO_VERIFY')) rawSummary = item.summary.en;
         const { status, missingDocs } = computeBenefitDocStatus(item.documents_required || [], confirmedDocSet);
 
         return {
           id: item.id,
           title: rawTitle,
+          summary: rawSummary,
           why_it_may_apply: `Likely applicable based on official ${rawTitle} guidelines.`,
           status,
           missing_documents: missingDocs,
@@ -122,7 +146,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Keep KB compact to ensure fast response and low token count
+    // Shrink prompt: Only send fields the model needs (id, title, applies_when, required documents)
     const compactKB = entitlementsData.map((item: any) => {
       let title = item.title[langKey] || item.title.en;
       if (title.includes('TODO_VERIFY')) title = item.title.en;
@@ -131,20 +155,17 @@ export async function POST(req: Request) {
         title,
         applies_when: item.applies_when,
         documents_required: item.documents_required || [],
-        office: item.office.includes('TODO_VERIFY') ? 'details to be confirmed with the office' : item.office,
-        steps: (item.steps || []).map((s: string) => s.includes('TODO_VERIFY') ? 'details to be confirmed with the office' : s),
-        source_url: item.source_url.includes('TODO_VERIFY') ? 'details to be confirmed with the office' : item.source_url,
       };
     });
 
-    const systemPrompt = `You are a military entitlement assistant for families of Indian Armed Forces martyrs.
+    const systemPrompt = `You are a military entitlement matching assistant for families of Indian Armed Forces martyrs.
 Evaluate the profile against the provided KB and return ONLY applicable benefits.
 Rules:
 1. Use ONLY provided KB entries. Never invent benefits.
 2. Check applies_when: b-01/b-02: deceased kin; b-03: dependentChildren > 0; b-04: Maharashtra only; b-05: Battle casualty only.
 3. NEVER claim eligible or approved; use "likely applicable" wording.
-4. Compare documents_required with confirmed docs: ${JSON.stringify(confirmedDocList)}. Status: 'ready' (all present) or 'missing_docs' (missing ones listed).
-5. Respond entirely in ${langName}.`;
+4. why_it_may_apply MUST be concise (maximum 25 words).
+5. Respond in ${langName}.`;
 
     const userPrompt = `KB:
 ${JSON.stringify(compactKB)}
@@ -155,26 +176,35 @@ ${JSON.stringify(answers)}
 Confirmed Fields:
 ${JSON.stringify(confirmedFields)}`;
 
-    const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+    const configuredModel = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
     const modelCandidates = [
-      modelName,
-      'gemini-1.5-flash',
+      configuredModel,
       'gemini-3.1-flash-lite',
-    ].filter((m, i, arr) => arr.indexOf(m) === i);
+      'gemini-3.8-flash',
+    ].filter((m, i, arr) => m && arr.indexOf(m) === i);
 
-    let matchedBenefits: BenefitMatch[] | null = null;
-    let usedModel = modelName;
-    let attempt = 0;
+    let rawBenefits: Array<{ id: string; why_it_may_apply: string }> | null = null;
+    let usedModel = configuredModel;
+    let retryHappened = false;
     let lastError: any = null;
+    const geminiCallStart = Date.now();
 
-    while (attempt < 2) {
+    for (let attempt = 0; attempt < 2; attempt++) {
       usedModel = modelCandidates[attempt] || modelCandidates[0];
+      if (attempt > 0) {
+        retryHappened = true;
+      }
+
       try {
         const response = await ai.models.generateContent({
           model: usedModel,
           contents: [systemPrompt, userPrompt],
           config: {
             temperature: 0,
+            maxOutputTokens: 800,
+            thinkingConfig: {
+              thinkingBudget: 0,
+            },
             responseMimeType: 'application/json',
             responseSchema: {
               type: Type.OBJECT,
@@ -185,39 +215,43 @@ ${JSON.stringify(confirmedFields)}`;
                     type: Type.OBJECT,
                     properties: {
                       id: { type: Type.STRING },
-                      title: { type: Type.STRING },
                       why_it_may_apply: { type: Type.STRING },
-                      status: { type: Type.STRING, enum: ['ready', 'missing_docs'] },
-                      missing_documents: { type: Type.ARRAY, items: { type: Type.STRING } },
-                      office: { type: Type.STRING },
-                      steps: { type: Type.ARRAY, items: { type: Type.STRING } },
-                      source_url: { type: Type.STRING }
                     },
-                    required: ['id', 'title', 'why_it_may_apply', 'status', 'missing_documents', 'office', 'steps', 'source_url']
-                  }
-                }
+                    required: ['id', 'why_it_may_apply'],
+                  },
+                },
               },
-              required: ['benefits']
-            }
-          }
+              required: ['benefits'],
+            },
+          },
         });
 
         const text = response.text;
         if (!text) throw new Error('Empty response from Gemini');
         const parsed = JSON.parse(text);
-        const validated = BenefitsOutputSchema.parse(parsed);
-        matchedBenefits = validated.benefits;
+        const validated = GeminiRawOutputSchema.parse(parsed);
+        rawBenefits = validated.benefits;
         break;
       } catch (err: any) {
-        attempt++;
         lastError = err;
-        console.error(`[Match API Gemini Attempt ${attempt} Failed with ${usedModel}]:`, err);
-        if (attempt >= 2) break;
-        await new Promise((res) => setTimeout(res, 500));
+        console.warn(`[Match API]: Gemini attempt ${attempt + 1} with ${usedModel} failed:`, err?.message || err);
+
+        // Only retry on 429/503 with a 2-second backoff
+        if (attempt === 0 && isRetryableError(err)) {
+          console.warn('[Match API]: Encountered 429/503. Retrying in 2 seconds...');
+          await new Promise((res) => setTimeout(res, 2000));
+          continue;
+        }
+
+        // Not retryable or already retried
+        break;
       }
     }
 
-    if (!matchedBenefits) {
+    const geminiDuration = Date.now() - geminiCallStart;
+    console.log(`[Match API]: Gemini call took ${geminiDuration}ms, retry: ${retryHappened}`);
+
+    if (!rawBenefits) {
       const parsedErr = parseGeminiError(lastError);
       console.error('[Match API Final Failure]:', {
         status: parsedErr.status,
@@ -232,20 +266,36 @@ ${JSON.stringify(confirmedFields)}`;
       );
     }
 
-    // Post-processor step 1: Deterministically enforce status & truly missing documents
-    matchedBenefits = matchedBenefits.map((benefit) => {
-      const kbItem = entitlementsData.find((e) => e.id === benefit.id);
-      const requiredDocs = kbItem?.documents_required || [];
+    // Populate localized KB data in code (title, summary, office, steps, source_url)
+    const populatedBenefits: BenefitMatch[] = [];
+    for (const b of rawBenefits) {
+      const kbItem = entitlementsData.find((e: any) => e.id === b.id);
+      if (!kbItem) continue;
+
+      let title = (kbItem.title as any)[langKey] || kbItem.title.en;
+      if (title.includes('TODO_VERIFY')) title = kbItem.title.en;
+
+      let summary = (kbItem.summary as any)[langKey] || kbItem.summary.en;
+      if (summary.includes('TODO_VERIFY')) summary = kbItem.summary.en;
+
+      const requiredDocs = kbItem.documents_required || [];
       const { status, missingDocs } = computeBenefitDocStatus(requiredDocs, confirmedDocSet);
-      return {
-        ...benefit,
+
+      populatedBenefits.push({
+        id: kbItem.id,
+        title,
+        summary,
+        why_it_may_apply: b.why_it_may_apply,
         status,
         missing_documents: missingDocs,
-      };
-    });
+        office: kbItem.office.includes('TODO_VERIFY') ? 'details to be confirmed with the office' : kbItem.office,
+        steps: (kbItem.steps || []).map((s: string) => s.includes('TODO_VERIFY') ? 'details to be confirmed with the office' : s),
+        source_url: kbItem.source_url.includes('TODO_VERIFY') ? 'details to be confirmed with the office' : kbItem.source_url,
+      });
+    }
 
-    // Post-processor step 2: Safety filter (strip forbidden terms, append disclaimer)
-    const safeOutput = safetyPostProcessor(matchedBenefits, langCode);
+    // Post-processor: Safety filter (strip forbidden terms, append disclaimer)
+    const safeOutput = safetyPostProcessor(populatedBenefits, langCode);
 
     const elapsed = Date.now() - startTime;
 
@@ -255,6 +305,8 @@ ${JSON.stringify(confirmedFields)}`;
         path: 'gemini',
         model: usedModel,
         duration_ms: elapsed,
+        gemini_duration_ms: geminiDuration,
+        retry_happened: retryHappened,
       },
       benefits: safeOutput.benefits,
       disclaimer: safeOutput.disclaimer,
