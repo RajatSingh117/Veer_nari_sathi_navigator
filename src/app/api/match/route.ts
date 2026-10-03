@@ -6,7 +6,43 @@ import { BenefitMatch, BenefitMatchSchema, MatchRequestSchema } from '@/lib/type
 import { safetyPostProcessor } from '@/lib/safety';
 import { resolveConfirmedDocTypes, computeBenefitDocStatus } from '@/lib/docMatching';
 
+export const maxDuration = 60;
+
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+function parseGeminiError(err: any): { status: number; message: string } {
+  const msg = err?.message || String(err || '');
+  const status = err?.status || err?.statusCode;
+
+  if (status === 429 || msg.includes('429') || msg.includes('RESOURCE_EXHAUSTED') || msg.toLowerCase().includes('quota')) {
+    return {
+      status: 429,
+      message: 'Gemini API quota exceeded. Please wait a moment and retry.',
+    };
+  }
+  if (status === 400 || status === 401 || status === 403 || msg.includes('API_KEY_INVALID') || msg.includes('API key not valid')) {
+    return {
+      status: 401,
+      message: 'Invalid or unauthorized Gemini API key. Please check your GEMINI_API_KEY configuration.',
+    };
+  }
+  if (status === 404 || msg.includes('404') || msg.includes('NOT_FOUND') || msg.includes('is not found')) {
+    return {
+      status: 404,
+      message: 'Configured Gemini model was not found.',
+    };
+  }
+  if (msg.includes('JSON') || msg.includes('SyntaxError') || msg.includes('Empty response')) {
+    return {
+      status: 502,
+      message: 'Gemini generated an invalid or incomplete response. Please retry.',
+    };
+  }
+  return {
+    status: typeof status === 'number' && status >= 400 && status < 600 ? status : 500,
+    message: `Gemini matching error: ${msg.slice(0, 200)}`,
+  };
+}
 
 const BenefitsOutputSchema = z.object({
   benefits: z.array(BenefitMatchSchema)
@@ -25,118 +61,15 @@ export async function POST(req: Request) {
     const { answers, confirmedFields, language, uploadedDocs } = parseResult.data;
     const langCode = (language || 'EN').toUpperCase();
     const langName = langCode === 'HI' ? 'Hindi' : langCode === 'MR' ? 'Marathi' : 'English';
+    const langKey = langCode.toLowerCase() as 'en' | 'hi' | 'mr';
 
     // Resolve which doc types the user has uploaded/confirmed
     const confirmedDocSet = resolveConfirmedDocTypes(uploadedDocs, confirmedFields);
     const confirmedDocList = Array.from(confirmedDocSet);
 
-    const systemPrompt = `You are an expert military entitlement guidance assistant for Veer Naris (widows) and families of Indian Armed Forces martyrs.
-Given the official Knowledge Base (KB) of entitlements, evaluate the applicant's profile and return ONLY the benefits whose KB 'applies_when' condition strictly matches the applicant.
-
-STRICT KB EVALUATION RULES:
-1. Use ONLY the provided KB entries. Never invent benefits.
-2. Strictly check 'applies_when' for each benefit:
-   - b-01: Applies if applicant is next of kin of deceased personnel.
-   - b-02: Applies if applicant/family are dependents of deceased personnel.
-   - b-03: Applies ONLY if the applicant has dependent children (dependentChildren > 0). If dependentChildren is '0' or none, EXCLUDE b-03.
-   - b-04: Applies ONLY if domiciled/residing in Maharashtra. If state is NOT Maharashtra (e.g. Uttar Pradesh, Punjab, etc.), EXCLUDE b-04.
-   - b-05: Applies ONLY if death is a battle casualty / death in harness. If cause of death is natural, non-battle, or illness, EXCLUDE b-05.
-3. NEVER state anyone is eligible or approved.
-4. Always use "likely applicable" wording (e.g. "Likely applicable because...").
-5. If an entry's data is 'TODO_VERIFY' or contains 'TODO_VERIFY', mark it "details to be confirmed with the office".
-6. DOCUMENT STATUS LOGIC:
-   - Compare each benefit's 'documents_required' against the user's Confirmed Document Types: ${JSON.stringify(confirmedDocList)}.
-   - If ALL required documents for a benefit are confirmed, mark status as 'ready' and missing_documents as [].
-   - If any required documents are not confirmed, mark status as 'missing_docs' and list ONLY the truly missing documents in missing_documents[].
-7. LANGUAGE REQUIREMENT:
-   - Respond entirely in ${langName}.
-   - Titles, 'why_it_may_apply', and 'missing_documents' must be in ${langName}.
-   - For TODO_VERIFY entries: English: "details to be confirmed with the office", Hindi: "कार्यालय से पुष्टि की जानी है", Marathi: "कार्यालयाकडून पुष्टी करणे आवश्यक".`;
-
-    const userPrompt = `Knowledge Base:
-${JSON.stringify(entitlementsData, null, 2)}
-
-Applicant Answers:
-${JSON.stringify(answers, null, 2)}
-
-Applicant Confirmed Fields:
-${JSON.stringify(confirmedFields, null, 2)}
-
-User Confirmed Document Types:
-${JSON.stringify(confirmedDocList, null, 2)}
-`;
-
-    let matchedBenefits: BenefitMatch[] | null = null;
-    let usedPath: 'gemini' | 'mock_fallback' = 'mock_fallback';
-    let usedModel: string = 'rule_based_mock';
-
-    const modelCandidates = [
-      process.env.GEMINI_MODEL,
-      'gemini-3.1-flash-lite',
-      'gemini-3.8-flash',
-      'gemini-flash-latest'
-    ].filter(Boolean) as string[];
-
-    if (process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== 'your_api_key_here') {
-      let attempt = 0;
-      while (attempt < 2) {
-        const currentModel = modelCandidates[attempt] || modelCandidates[0];
-        try {
-          const response = await ai.models.generateContent({
-            model: currentModel,
-            contents: [systemPrompt, userPrompt],
-            config: {
-              temperature: 0,
-              responseMimeType: 'application/json',
-              responseSchema: {
-                type: Type.OBJECT,
-                properties: {
-                  benefits: {
-                    type: Type.ARRAY,
-                    items: {
-                      type: Type.OBJECT,
-                      properties: {
-                        id: { type: Type.STRING },
-                        title: { type: Type.STRING },
-                        why_it_may_apply: { type: Type.STRING },
-                        status: { type: Type.STRING, enum: ['ready', 'missing_docs'] },
-                        missing_documents: { type: Type.ARRAY, items: { type: Type.STRING } },
-                        office: { type: Type.STRING },
-                        steps: { type: Type.ARRAY, items: { type: Type.STRING } },
-                        source_url: { type: Type.STRING }
-                      },
-                      required: ['id', 'title', 'why_it_may_apply', 'status', 'missing_documents', 'office', 'steps', 'source_url']
-                    }
-                  }
-                },
-                required: ['benefits']
-              }
-            }
-          });
-
-          const text = response.text;
-          if (!text) throw new Error('Empty response from Gemini');
-          const parsed = JSON.parse(text);
-          const validated = BenefitsOutputSchema.parse(parsed);
-          matchedBenefits = validated.benefits;
-          usedPath = 'gemini';
-          usedModel = currentModel;
-          break;
-        } catch (err) {
-          attempt++;
-          console.warn(`Gemini matching attempt ${attempt} failed:`, err);
-          if (attempt < 2) {
-            await new Promise((res) => setTimeout(res, 800));
-          }
-        }
-      }
-    }
-
-    // Fallback rule-based matching if Gemini calls failed or no API key
-    if (!matchedBenefits) {
-      usedPath = 'mock_fallback';
-      usedModel = 'rule_based_kb';
-
+    // DEMO_MODE fallback
+    if (process.env.DEMO_MODE === 'true') {
+      console.log('[Match API]: DEMO_MODE=true returning rule-based mock');
       const filtered = entitlementsData.filter((item: any) => {
         if (item.id === 'b-01') return true;
         if (item.id === 'b-02') return true;
@@ -155,17 +88,15 @@ ${JSON.stringify(confirmedDocList, null, 2)}
         return true;
       });
 
-      matchedBenefits = filtered.map((item: any) => {
-        const langKey = langCode.toLowerCase() as 'en' | 'hi' | 'mr';
+      const matchedBenefits = filtered.map((item: any) => {
         let rawTitle = item.title[langKey] || item.title.en;
         if (rawTitle.includes('TODO_VERIFY')) rawTitle = item.title.en;
-
         const { status, missingDocs } = computeBenefitDocStatus(item.documents_required || [], confirmedDocSet);
 
         return {
           id: item.id,
           title: rawTitle,
-          why_it_may_apply: `Likely applicable based on family criteria and official ${rawTitle} guidelines.`,
+          why_it_may_apply: `Likely applicable based on official ${rawTitle} guidelines.`,
           status,
           missing_documents: missingDocs,
           office: item.office.includes('TODO_VERIFY') ? 'details to be confirmed with the office' : item.office,
@@ -173,6 +104,132 @@ ${JSON.stringify(confirmedDocList, null, 2)}
           source_url: item.source_url.includes('TODO_VERIFY') ? 'details to be confirmed with the office' : item.source_url,
         };
       });
+
+      const safeOutput = safetyPostProcessor(matchedBenefits, langCode);
+      return NextResponse.json({
+        success: true,
+        meta: { path: 'mock_fallback', model: 'demo_rule_based_kb', duration_ms: Date.now() - startTime },
+        benefits: safeOutput.benefits,
+        disclaimer: safeOutput.disclaimer,
+      });
+    }
+
+    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === 'your_api_key_here') {
+      console.error('[Match API Error]: Gemini API key is missing or not configured.');
+      return NextResponse.json(
+        { error: 'Gemini API key is not configured and DEMO_MODE is not enabled.' },
+        { status: 401 }
+      );
+    }
+
+    // Keep KB compact to ensure fast response and low token count
+    const compactKB = entitlementsData.map((item: any) => {
+      let title = item.title[langKey] || item.title.en;
+      if (title.includes('TODO_VERIFY')) title = item.title.en;
+      return {
+        id: item.id,
+        title,
+        applies_when: item.applies_when,
+        documents_required: item.documents_required || [],
+        office: item.office.includes('TODO_VERIFY') ? 'details to be confirmed with the office' : item.office,
+        steps: (item.steps || []).map((s: string) => s.includes('TODO_VERIFY') ? 'details to be confirmed with the office' : s),
+        source_url: item.source_url.includes('TODO_VERIFY') ? 'details to be confirmed with the office' : item.source_url,
+      };
+    });
+
+    const systemPrompt = `You are a military entitlement assistant for families of Indian Armed Forces martyrs.
+Evaluate the profile against the provided KB and return ONLY applicable benefits.
+Rules:
+1. Use ONLY provided KB entries. Never invent benefits.
+2. Check applies_when: b-01/b-02: deceased kin; b-03: dependentChildren > 0; b-04: Maharashtra only; b-05: Battle casualty only.
+3. NEVER claim eligible or approved; use "likely applicable" wording.
+4. Compare documents_required with confirmed docs: ${JSON.stringify(confirmedDocList)}. Status: 'ready' (all present) or 'missing_docs' (missing ones listed).
+5. Respond entirely in ${langName}.`;
+
+    const userPrompt = `KB:
+${JSON.stringify(compactKB)}
+
+Answers:
+${JSON.stringify(answers)}
+
+Confirmed Fields:
+${JSON.stringify(confirmedFields)}`;
+
+    const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+    const modelCandidates = [
+      modelName,
+      'gemini-1.5-flash',
+      'gemini-3.1-flash-lite',
+    ].filter((m, i, arr) => arr.indexOf(m) === i);
+
+    let matchedBenefits: BenefitMatch[] | null = null;
+    let usedModel = modelName;
+    let attempt = 0;
+    let lastError: any = null;
+
+    while (attempt < 2) {
+      usedModel = modelCandidates[attempt] || modelCandidates[0];
+      try {
+        const response = await ai.models.generateContent({
+          model: usedModel,
+          contents: [systemPrompt, userPrompt],
+          config: {
+            temperature: 0,
+            responseMimeType: 'application/json',
+            responseSchema: {
+              type: Type.OBJECT,
+              properties: {
+                benefits: {
+                  type: Type.ARRAY,
+                  items: {
+                    type: Type.OBJECT,
+                    properties: {
+                      id: { type: Type.STRING },
+                      title: { type: Type.STRING },
+                      why_it_may_apply: { type: Type.STRING },
+                      status: { type: Type.STRING, enum: ['ready', 'missing_docs'] },
+                      missing_documents: { type: Type.ARRAY, items: { type: Type.STRING } },
+                      office: { type: Type.STRING },
+                      steps: { type: Type.ARRAY, items: { type: Type.STRING } },
+                      source_url: { type: Type.STRING }
+                    },
+                    required: ['id', 'title', 'why_it_may_apply', 'status', 'missing_documents', 'office', 'steps', 'source_url']
+                  }
+                }
+              },
+              required: ['benefits']
+            }
+          }
+        });
+
+        const text = response.text;
+        if (!text) throw new Error('Empty response from Gemini');
+        const parsed = JSON.parse(text);
+        const validated = BenefitsOutputSchema.parse(parsed);
+        matchedBenefits = validated.benefits;
+        break;
+      } catch (err: any) {
+        attempt++;
+        lastError = err;
+        console.error(`[Match API Gemini Attempt ${attempt} Failed with ${usedModel}]:`, err);
+        if (attempt >= 2) break;
+        await new Promise((res) => setTimeout(res, 500));
+      }
+    }
+
+    if (!matchedBenefits) {
+      const parsedErr = parseGeminiError(lastError);
+      console.error('[Match API Final Failure]:', {
+        status: parsedErr.status,
+        message: parsedErr.message,
+        raw: lastError?.message,
+        stack: lastError?.stack,
+      });
+
+      return NextResponse.json(
+        { error: parsedErr.message, details: lastError?.message },
+        { status: parsedErr.status }
+      );
     }
 
     // Post-processor step 1: Deterministically enforce status & truly missing documents
@@ -195,7 +252,7 @@ ${JSON.stringify(confirmedDocList, null, 2)}
     return NextResponse.json({
       success: true,
       meta: {
-        path: usedPath,
+        path: 'gemini',
         model: usedModel,
         duration_ms: elapsed,
       },

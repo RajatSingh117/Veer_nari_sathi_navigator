@@ -2,7 +2,43 @@ import { NextResponse } from 'next/server';
 import { GoogleGenAI } from '@google/genai';
 import { z } from 'zod';
 
+export const maxDuration = 60;
+
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+function parseGeminiError(err: any): { status: number; message: string } {
+  const msg = err?.message || String(err || '');
+  const status = err?.status || err?.statusCode;
+
+  if (status === 429 || msg.includes('429') || msg.includes('RESOURCE_EXHAUSTED') || msg.toLowerCase().includes('quota')) {
+    return {
+      status: 429,
+      message: 'Gemini API quota exceeded. Please wait a moment and retry.',
+    };
+  }
+  if (status === 400 || status === 401 || status === 403 || msg.includes('API_KEY_INVALID') || msg.includes('API key not valid')) {
+    return {
+      status: 401,
+      message: 'Invalid or unauthorized Gemini API key. Please check your GEMINI_API_KEY configuration.',
+    };
+  }
+  if (status === 404 || msg.includes('404') || msg.includes('NOT_FOUND') || msg.includes('is not found')) {
+    return {
+      status: 404,
+      message: 'Configured Gemini model was not found.',
+    };
+  }
+  if (msg.includes('JSON') || msg.includes('SyntaxError') || msg.includes('Empty response')) {
+    return {
+      status: 502,
+      message: 'Gemini generated an invalid or incomplete response. Please retry.',
+    };
+  }
+  return {
+    status: typeof status === 'number' && status >= 400 && status < 600 ? status : 500,
+    message: `Gemini letter drafting error: ${msg.slice(0, 200)}`,
+  };
+}
 
 const LetterRequestSchema = z.object({
   benefit: z.object({
@@ -120,13 +156,19 @@ Yours faithfully,
 
     // Call Gemini with GEMINI_MODEL from env
     if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === 'your_api_key_here') {
+      console.error('[Letter API Error]: Gemini API key is missing.');
       return NextResponse.json(
         { error: 'Gemini API key is not configured and DEMO_MODE is not enabled.' },
-        { status: 500 }
+        { status: 401 }
       );
     }
 
-    const modelName = process.env.GEMINI_MODEL || 'gemini-3.1-flash-lite';
+    const modelName = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+    const candidateModels = [
+      modelName,
+      'gemini-1.5-flash',
+      'gemini-3.1-flash-lite',
+    ].filter((m, i, arr) => arr.indexOf(m) === i);
 
     const systemPrompt = `You are an expert military benefits counselor assisting Veer Naris (widows) and dependents of Indian Armed Forces martyrs.
 Write a formal Indian government-style application letter for the requested military entitlement in ${langName}.
@@ -140,23 +182,21 @@ STRICT LETTER WRITING RULES:
 6. The letter MUST conclude with a clear formal statement that: "The final decision on sanctioning rests with the concerned office." (translated appropriately into ${langName}).
 7. Output ONLY the complete letter text. Do not wrap in markdown code blocks or add preamble/postscript.`;
 
-    const userPrompt = `Entitlement Benefit Details:
-${JSON.stringify(benefit, null, 2)}
+    const userPrompt = `Benefit:
+${JSON.stringify({ id: benefit.id, title: benefit.title, office: benefit.office })}
 
-Confirmed Soldier / Service Details:
-${JSON.stringify(confirmedFields, null, 2)}
+Confirmed Soldier Details:
+${JSON.stringify(confirmedFields)}
 
-Applicant Evaluation Answers:
-${JSON.stringify(answers, null, 2)}
+Answers:
+${JSON.stringify(answers)}
 
-Requested Language: ${langName}`;
+Language: ${langName}`;
 
     // Retry once on failure
     let attempt = 0;
     let letterText = '';
     let lastError: any = null;
-
-    const candidateModels = [modelName, 'gemini-3.1-flash-lite', 'gemini-flash-latest'];
     let usedModel = modelName;
 
     while (attempt < 2) {
@@ -176,21 +216,27 @@ Requested Language: ${langName}`;
         }
         letterText = text.trim();
         break;
-      } catch (err) {
+      } catch (err: any) {
         attempt++;
         lastError = err;
-        console.warn(`Gemini letter generation attempt ${attempt} failed:`, err);
-        if (attempt < 2) {
-          await new Promise((res) => setTimeout(res, 800));
-        }
+        console.error(`[Letter API Attempt ${attempt} Failed with ${usedModel}]:`, err);
+        if (attempt >= 2) break;
+        await new Promise((res) => setTimeout(res, 500));
       }
     }
 
     if (!letterText) {
-      console.error('All Gemini letter attempts failed:', lastError);
+      const parsedErr = parseGeminiError(lastError);
+      console.error('[Letter API Final Failure]:', {
+        status: parsedErr.status,
+        message: parsedErr.message,
+        raw: lastError?.message,
+        stack: lastError?.stack,
+      });
+
       return NextResponse.json(
-        { error: 'Failed to generate application letter via AI. Please try again.', details: lastError?.message },
-        { status: 500 }
+        { error: parsedErr.message, details: lastError?.message },
+        { status: parsedErr.status }
       );
     }
 
@@ -210,9 +256,9 @@ Requested Language: ${langName}`;
     });
 
   } catch (error: any) {
-    console.error('Letter generation error:', error);
+    console.error('[Letter Route Fatal Error]:', error);
     return NextResponse.json(
-      { error: 'Failed to process letter request', details: error.message },
+      { error: error.message || 'Failed to process letter request', details: error.message },
       { status: 500 }
     );
   }

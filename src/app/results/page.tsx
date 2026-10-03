@@ -19,6 +19,9 @@ export default function ResultsPage() {
   const fetchMatches = useCallback(async () => {
     setLoading(true);
     setError(null);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 45000);
+
     try {
       const res = await fetch('/api/match', {
         method: 'POST',
@@ -28,16 +31,19 @@ export default function ResultsPage() {
           confirmedFields: state.fields,
           language: lang,
         }),
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
 
       if (!res.ok) {
         const errJson = await res.json().catch(() => ({}));
-        throw new Error(errJson.error || `Server responded with ${res.status}`);
+        throw new Error(errJson.error || `Server responded with status ${res.status}`);
       }
 
       const data = await res.json();
       if (!data.success || !Array.isArray(data.benefits)) {
-        throw new Error('Invalid match response received');
+        throw new Error('Invalid match response received from server');
       }
 
       setBenefits(data.benefits);
@@ -48,8 +54,13 @@ export default function ResultsPage() {
         setDisclaimerText(data.disclaimer);
       }
     } catch (err: any) {
+      clearTimeout(timeoutId);
       console.error('Failed to load matches:', err);
-      setError(err.message || 'Failed to match entitlements');
+      if (err.name === 'AbortError') {
+        setError('Evaluation timed out after 45 seconds. The server took too long to evaluate benefits. Please click Retry.');
+      } else {
+        setError(err.message || 'Failed to match entitlements. Please click Retry.');
+      }
     } finally {
       setLoading(false);
     }

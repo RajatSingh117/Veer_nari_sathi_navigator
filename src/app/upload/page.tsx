@@ -38,14 +38,39 @@ export default function UploadPage() {
     formData.append('file', file);
     formData.append('docType', INITIAL_SLOTS.find(s => s.key === key)!.docType);
     formData.append('language', lang);
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 45000);
+
     try {
       updateSlot(key, { status: 'extracting' });
-      const res = await fetch('/api/documents/extract', { method: 'POST', body: formData });
-      const result = await res.json();
-      if (!res.ok) throw new Error(result.error || 'Extraction failed');
+      const res = await fetch('/api/documents/extract', {
+        method: 'POST',
+        body: formData,
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+      const result = await res.json().catch(() => ({}));
+
+      if (!res.ok) throw new Error(result.error || `Server error (${res.status})`);
+      if (!result.data) throw new Error('No data extracted from document');
+
       updateSlot(key, { status: 'success', data: result.data });
     } catch (err: any) {
-      updateSlot(key, { status: 'error', error: err.message || 'Failed' });
+      clearTimeout(timeoutId);
+      console.error(`Document extraction error for ${key}:`, err);
+      if (err.name === 'AbortError') {
+        updateSlot(key, {
+          status: 'error',
+          error: 'Extraction timed out after 45 seconds. Please retry with a clear photo or PDF.',
+        });
+      } else {
+        updateSlot(key, {
+          status: 'error',
+          error: err.message || 'Document extraction failed. Please retry.',
+        });
+      }
     }
   }, [lang, t]);
 
@@ -104,8 +129,11 @@ export default function UploadPage() {
 
               {(slot.status === 'pending' || slot.status === 'error') && (<>
                 <button onClick={() => fileRefs.current[slot.key]?.click()}
-                  className="px-4 py-3 bg-primary text-on-primary rounded-lg font-label-md w-full hover:bg-[#2A3F5F] active:scale-[0.98] focus:ring-2 focus:ring-[#D97706] transition-all">
-                  <span className="material-symbols-outlined text-[18px] align-middle mr-1">cloud_upload</span>{t('upload.uploadBtn')}
+                  className="px-4 py-3 bg-primary text-on-primary rounded-lg font-label-md w-full hover:bg-[#2A3F5F] active:scale-[0.98] focus:ring-2 focus:ring-[#D97706] transition-all flex items-center justify-center gap-1.5">
+                  <span className="material-symbols-outlined text-[18px]">
+                    {slot.status === 'error' ? 'refresh' : 'cloud_upload'}
+                  </span>
+                  <span>{slot.status === 'error' ? (t('upload.retry') || 'Retry Upload') : t('upload.uploadBtn')}</span>
                 </button>
                 <p className="text-caption text-on-surface-variant">{t('upload.dragDrop')}</p>
                 <input type="file" ref={el => { fileRefs.current[slot.key] = el; }} className="hidden" accept="image/jpeg,image/png,application/pdf" capture="environment"
